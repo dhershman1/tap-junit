@@ -10,4 +10,4 @@ fail:
 	@$(TAP) test/fail.js | $(JSON)
 
 test:
-	@$(TAP) test/*.js | $(JSON)
+	@$(TAP) test/pass.js | $(JSON)

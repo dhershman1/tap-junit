@@ -6,80 +6,93 @@ const through = require('through2');
 const duplexer = require('duplexer');
 const fse = require('fs-extra');
 const parsedArgs = require('minimist')(process.argv.slice(2));
-
-/* Helpers */
-
-function writeOutput(json) {
-	fse.mkdirp(parsedArgs.output, (err) => {
-		if (err) {
-			throw err;
-		}
-		fse.writeJson(path.join(parsedArgs.output, 'tap.json'), json, {spaces: 2}, (jsonErr) => {
-			if (jsonErr) {
-				throw jsonErr;
-			}
-		});
-	});
-}
+const serialize = require('./lib/serialize.js');
 
 /* Parser */
 
 module.exports = () => {
 	const tap = parser();
-	let out = through.obj();
+	let out = through();
+	let testSuites = [];
+	let finished = false;
+	let testCase = {};
 	let dup = duplexer(tap, out);
-	let duration = 0;
-	let initialTime = new Date();
-	let json = {
-		stats: {
-			tests: 0,
-			passes: 0,
-			failures: 0,
-			pending: 0,
-			duration: 0
-		},
-		failures: [],
-		passes: []
-	};
-	let data = {
-		failures: [],
-		passes: []
-	};
-	let cmt = null;
+
+	/* Helpers */
+
+	function writeOutput(xml, passing) {
+		fse.mkdirp(parsedArgs.output, (err) => {
+			if (err) {
+				throw err;
+			}
+			fse.writeFile(path.join(parsedArgs.output, 'tap.xml'), xml, (xmlErr) => {
+				if (xmlErr) {
+					throw xmlErr;
+				}
+				if (!passing) {
+					console.error(new Error('Looks like the test suites failed, check your tap.xml for more info'));
+					process.exit(1);
+				}
+			});
+		});
+	}
+
+	function formatTestName(name) {
+		// Full width unicode dot
+		const unicodeDot = '\uFF0E';
+		let formattedName = name;
+
+		name.replace(/\./g, unicodeDot);
+		if (name.indexOf('#') === 0) {
+			formattedName = name.substr(1);
+		}
+
+		return formattedName.trim();
+	}
+
+	function newTest(testName) {
+		testSuites.push({
+			id: testSuites.length,
+			extra: [],
+			asserts: [],
+			testName: formatTestName(testName)
+		});
+
+		return testSuites[testSuites.length - 1];
+	}
+
+	/* Parser Event listening */
 
 	tap.on('comment', function(res) {
-		cmt = res;
+		if (finished) {
+			return;
+		}
+		testCase = newTest(res);
 	});
 
 	tap.on('assert', function(res) {
-		const assert = {
-			fullTitle: cmt,
-			title: res.name,
-			duration: new Date() - initialTime
-		};
+		if (!testCase) {
+			testCase = newTest('Default');
+		}
+		testCase.asserts.push(res);
 
-		if (!res.ok) {
-			assert.error = res.name;
-			assert.title = cmt;
-			data.failures.push(assert);
-		} else {
-			data.passes.push(assert);
+	});
+
+	tap.on('extra', extra => {
+		if (testCase && extra) {
+			testCase.extra.push(extra);
 		}
 	});
 
-	tap.on('results', res => {
-		json.stats.duration += duration;
-		json.stats.tests += res.asserts.length;
-		json.stats.passes += res.pass.length;
-		json.stats.failures += res.fail.length;
-		json.stats.pending += res.todo.length;
-		json.failures = json.failures.concat(data.failures);
-		json.passes = json.passes.concat(data.passes);
-		out.push(json);
+	tap.on('plan', () => {
+		finished = true;
 	});
 
-	tap.on('finish', () => {
-		writeOutput(json);
+	tap.on('results', res => {
+		const xmlString = serialize(testSuites);
+
+		out.push(xmlString);
+		writeOutput(xmlString, res.ok);
 	});
 
 	return dup;
