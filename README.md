@@ -5,15 +5,15 @@ XML TAP output formatter. Mainly for use with junit and other bamboo xunit parse
 ## Installation
 
 ~~~ text
-npm install -g tap-xml
-npm install tap-xml --save-dev
+npm install -g tap-bamboo
+npm install tap-bamboo --save-dev
 ~~~
 
 ## Usage
 
 ~~~ text
-tape test/*.js | tap-xml
-node test.js | ./node_modules/tap-xml/bin/tap-xml
+tape test/*.js | tap-bamboo
+node test.js | ./node_modules/tap-bamboo/bin/tap-bamboo
 ~~~
 
 ## Output
