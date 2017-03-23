@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+/* Modules */
+
+var parser = require('../');
+
+/* Output */
+
+process.stdin
+  .pipe(parser());
+
+// vim:filetype=javascript
