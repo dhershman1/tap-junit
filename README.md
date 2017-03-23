@@ -1,4 +1,4 @@
-# tap-xml
+# tap-bamboo
 
 XML TAP output formatter. Mainly for use with junit and other bamboo xunit parsers
 
