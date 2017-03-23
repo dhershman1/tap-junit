@@ -1,19 +1,25 @@
-# tap-bamboo
+# tap-junit
 
-XML TAP output formatter. Mainly for use with junit and other bamboo xunit parsers
+XML TAP output formatter for junit.
+
+Works with tape and other tap based tests just pipe it into tap-junit and set your output param.
+
+## Parameters
+
+`--output` - designate where you want the .xml results to output
 
 ## Installation
 
 ~~~ text
-npm install -g tap-bamboo
-npm install tap-bamboo --save-dev
+npm install -g tap-junit
+npm install tap-junit --save-dev
 ~~~
 
 ## Usage
 
 ~~~ text
-tape test/*.js | tap-bamboo
-node test.js | ./node_modules/tap-bamboo/bin/tap-bamboo
+tape test/*.js | tap-junit
+node test.js | ./node_modules/tap-junit/bin/tap-junit
 ~~~
 
 ## Output
