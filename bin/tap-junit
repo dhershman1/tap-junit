@@ -8,5 +8,3 @@ const parser = require('../');
 
 process.stdin
   .pipe(parser());
-
-// vim:filetype=javascript

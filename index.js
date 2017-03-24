@@ -27,11 +27,13 @@ module.exports = () => {
 	 * @return {Null} No Return required
 	 */
 	function writeOutput(xml, passing) {
-		fse.mkdirp(parsedArgs.output, (err) => {
+		const output = parsedArgs.output || '';
+
+		fse.mkdirp(output, (err) => {
 			if (err) {
 				throw err;
 			}
-			fse.writeFile(path.join(parsedArgs.output, 'tap.xml'), xml, (xmlErr) => {
+			fse.writeFile(path.join(output, 'tap.xml'), xml, (xmlErr) => {
 				if (xmlErr) {
 					throw xmlErr;
 				}
@@ -39,6 +41,7 @@ module.exports = () => {
 					console.error(new Error('Looks like the test suites failed, check your tap.xml for more info'));
 					process.exit(1);
 				}
+				console.log('Finished! tap.xml created');
 			});
 		});
 	}
