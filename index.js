@@ -27,7 +27,7 @@ module.exports = () => {
 	 * @return {Null} No Return required
 	 */
 	function writeOutput(xml, passing) {
-		const output = parsedArgs.output || '';
+		const output = parsedArgs.output || process.cwd();
 
 		fse.mkdirp(output, (err) => {
 			if (err) {

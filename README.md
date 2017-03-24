@@ -33,3 +33,8 @@ node test.js | ./node_modules/tap-junit/bin/tap-junit
   </testsuite>
 </testsuites>
 ```
+
+## Changelog
+> v1.0.1
+> - Added default output
+> - Fixed line endings in bin that somehow became crlf
