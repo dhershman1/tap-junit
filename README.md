@@ -18,8 +18,8 @@ npm install tap-junit --save-dev
 ## Usage
 
 ~~~ text
-tape test/*.js | tap-junit
-node test.js | ./node_modules/tap-junit/bin/tap-junit
+tape test/*.js | tap-junit --output output/test
+node test.js | ./node_modules/tap-junit/bin/tap-junit --output output/test
 ~~~
 
 ## Output
@@ -35,6 +35,7 @@ node test.js | ./node_modules/tap-junit/bin/tap-junit
 ```
 
 ## Changelog
-> v1.0.1
-> - Added default output
-> - Fixed line endings in bin that somehow became crlf
+> v1.0.3
+> - Removed Tape Dependency
+> - Swapped stuff over to github
+> - Readme Tweaks
