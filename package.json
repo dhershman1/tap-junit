@@ -38,6 +38,7 @@
     "xmlbuilder": "^8.2.2"
   },
   "devDependencies": {
+		"tape": "4.6.3",
     "eslint": "^3.17.1"
   }
 }

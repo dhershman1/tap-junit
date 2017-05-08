@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dhershman1/tap-junit.svg?branch=master)](https://travis-ci.org/dhershman1/tap-junit)
 # tap-junit
 
 XML TAP output formatter for junit.
