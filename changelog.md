@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.1.1
+## v1.2.0
 
 > - Continued optimizations
 >   - Removed `plan` event listening since it was currently valueless
