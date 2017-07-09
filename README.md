@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/dhershman1/tap-junit.svg?branch=master)](https://travis-ci.org/dhershman1/tap-junit)
+
 # tap-junit
 
-XML TAP output formatter for junit.
+Silly small and silly easy XML tap output formatter.
 
 Works with tape and other tap based tests just pipe it into tap-junit and set your output param.
 
@@ -38,6 +39,12 @@ node test.js | ./node_modules/tap-junit/bin/tap-junit --output output/test
   </testsuite>
 </testsuites>
 ```
+
+## Skip Output
+
+**`tap-junit` uses regex currently to determine skipped tests it looks for the `# SKIP` string strictly, so please avoid using this in your test/assert name/msg or you may get incorrect outputs. This is done because none of the current Parsers have solid support for `TODO` or `SKIP` in tap.**
+
+If it is requested I will go back to just having the outputter write blank testsuites and not writing outputs at all when a value is skipped (due to the feedback from tap itself)
 
 Skipped asserts will show up like so:
 

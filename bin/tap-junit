@@ -2,7 +2,7 @@
 
 /* Modules */
 
-const parser = require('../');
+const parser = require('../src/index.js');
 
 /* Output */
 

@@ -5,6 +5,7 @@ const test = require('tape');
 /* Tests */
 
 test('1 === 1', t => {
+	t.plan(3);
 	t.equal(1, 1, 'test is equal', {data: 'cool'});
 	t.equal(1, 1, 'test skip extra', {skip: true});
 	t.notEqual(1, 0);

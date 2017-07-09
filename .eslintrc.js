@@ -12,7 +12,7 @@ module.exports = {
 		// Possible Errors
 		'no-await-in-loop': 'error',
 		'no-cond-assign': ['error', 'always'],
-		'no-console': 'warn',
+		'no-console': ['warn', {'allow': ['warn', 'error']}],
 		'no-constant-condition': 'error',
 		'no-control-regex': 'error',
 		'no-debugger': 'error',

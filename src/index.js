@@ -3,22 +3,34 @@
 const path = require('path');
 const parser = require('tap-out');
 const through = require('through2');
-const duplexer = require('duplexer');
+const duplexer = require('duplexer2');
 const fse = require('fs-extra');
-const parsedArgs = require('minimist')(process.argv.slice(2));
-const serialize = require('./lib/serialize.js');
+const parsedArgs = require('minimist')(process.argv.slice(2), {
+	alias: {
+		o: 'output',
+		n: 'name'
+	}
+});
+const serialize = require('./serialize.js');
 
 /* Parser */
 
 module.exports = () => {
-	const tap = parser();
 	let out = through();
 	let testSuites = [];
-	let finished = false;
 	let testCase = {};
-	let dup = duplexer(tap, out);
+	const tap = parser();
+	const dup = duplexer(tap, out);
 
 	/* Helpers */
+
+	const sanitizeString = (str) => {
+		if (str) {
+			return str.replace(/\W/g, '').trim();
+		}
+
+		return str;
+	};
 
 	/**
 	 * Writes the tap.xml file
@@ -28,22 +40,23 @@ module.exports = () => {
 	 */
 	const writeOutput = (xml, passing) => {
 		const output = parsedArgs.output || process.cwd();
+		const name = sanitizeString(parsedArgs.name) || 'tap';
 
-		fse.mkdirp(output, (err) => {
+		fse.mkdirp(output, err => {
 			if (err) {
-				console.error('There was an error when tap-junit tried to create the output directory');
-				throw err;
+				console.error('There was an error when tap-junit tried to create the output directory', err);
+				process.exitCode = 1;
 			}
-			fse.writeFile(path.join(output, 'tap.xml'), xml, (xmlErr) => {
+			fse.writeFile(path.join(output, `${name}.xml`), xml, xmlErr => {
 				if (xmlErr) {
-					console.error('There was a write error when tap-junit tried to write your output file');
-					throw xmlErr;
+					console.error('There was a write error when tap-junit tried to write your output file', xmlErr);
+					process.exitCode = 1;
 				}
+				process.stdout.write(`Finished! tap.xml created at: ${output}\n`);
 				if (!passing) {
-					console.error(new Error('Looks like the test suites failed, check your tap.xml for more info'));
-					process.exit(1);
+					console.error(new Error('Looks like some test suites failed'));
+					process.exitCode = 1;
 				}
-				console.log('Finished! tap.xml created');
 			});
 		});
 	};
@@ -56,8 +69,6 @@ module.exports = () => {
 	const newTest = ({name, number}) => {
 		const recordedTest = {
 			id: number,
-			extraCount: 0,
-			extra: [],
 			assertCount: 0,
 			asserts: [],
 			comments: 0,
@@ -65,6 +76,7 @@ module.exports = () => {
 			skipped: false,
 			errorCount: 0,
 			errors: [],
+			failCount: 0,
 			testName: name
 		};
 
@@ -74,21 +86,18 @@ module.exports = () => {
 	};
 
 	const isSkipped = ({raw}) => {
-		return (/#\s?([A-Z])\w+/).test(raw);
+		return (/#\s?(SKIP)+/).test(raw);
 	};
 
 	/* Parser Event listening */
 
 	// This is the ENITRE test event not just the inner asserts
 	tap.on('test', res => {
-		if (finished) {
-			return;
-		}
-
 		testCase = newTest(res);
 		testCase.skipped = isSkipped(res);
 	});
 
+	// Someone used a console.log or t.comment in their tests
 	tap.on('comment', () => {
 		testCase.comments++;
 	});
@@ -103,15 +112,10 @@ module.exports = () => {
 		testCase.asserts.push(res);
 	});
 
-	tap.on('extra', extra => {
-		if (testCase && extra) {
-			testCase.extraCount++;
-			testCase.extra.push(extra);
-		}
-	});
-
-	tap.on('plan', () => {
-		finished = true;
+	// Event for a assert failure
+	// Optional param: {assert} which is just the assertion object
+	tap.on('fail', () => {
+		testCase.failCount++;
 	});
 
 	tap.on('output', output => {

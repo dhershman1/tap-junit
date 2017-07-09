@@ -1,5 +1,5 @@
 node_modules/
-img/
-test/
 .gitignore
 Makefile
+.travis.yml
+.eslintrc.js
