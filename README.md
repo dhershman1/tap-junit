@@ -12,7 +12,8 @@ You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/
 
 ## Parameters
 
-`--output` - designate where you want the .xml results to output
+`-o, --output` - designate where you want the .xml results to output
+`-n, --name` - value provided will be the name of the `output.xml` file, otherwise defaults to `tap.xml`
 
 ## Installation
 
