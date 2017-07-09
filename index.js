@@ -1,7 +1,7 @@
 /* Modules */
 
 const path = require('path');
-const parser = require('tap-parser');
+const parser = require('tap-out');
 const through = require('through2');
 const duplexer = require('duplexer');
 const fse = require('fs-extra');
@@ -26,15 +26,17 @@ module.exports = () => {
 	 * @param  {Boolean} passing passing boolean to let us know that the tests are passing
 	 * @return {Null} No Return required
 	 */
-	function writeOutput(xml, passing) {
+	const writeOutput = (xml, passing) => {
 		const output = parsedArgs.output || process.cwd();
 
 		fse.mkdirp(output, (err) => {
 			if (err) {
+				console.error('There was an error when tap-junit tried to create the output directory');
 				throw err;
 			}
 			fse.writeFile(path.join(output, 'tap.xml'), xml, (xmlErr) => {
 				if (xmlErr) {
+					console.error('There was a write error when tap-junit tried to write your output file');
 					throw xmlErr;
 				}
 				if (!passing) {
@@ -44,61 +46,66 @@ module.exports = () => {
 				console.log('Finished! tap.xml created');
 			});
 		});
-	}
-
-	/**
-	 * Formats test names for our array of suites
-	 * @param  {String} name The test name brought back from the tap parse
-	 * @return {String}        Returns the formatted name
-	 */
-	function formatTestName(name) {
-		// Full width unicode dot
-		const unicodeDot = '\uFF0E';
-		let formattedName = name;
-
-		name.replace(/\./g, unicodeDot);
-		if (name.indexOf('#') === 0) {
-			formattedName = name.substr(1);
-		}
-
-		return formattedName.trim();
-	}
+	};
 
 	/**
 	 * Creates a new test object and pushes it into our suites
-	 * @param  {String} testName Test name
+	 * @param  {String} testInfo Test name
 	 * @return {Object}            Returns the newly created test object
 	 */
-	function newTest(testName) {
-		testSuites.push({
-			id: testSuites.length,
+	const newTest = ({name, number}) => {
+		const recordedTest = {
+			id: number,
+			extraCount: 0,
 			extra: [],
+			assertCount: 0,
 			asserts: [],
-			testName: formatTestName(testName)
-		});
+			comments: 0,
+			skipCount: 0,
+			skipped: false,
+			errorCount: 0,
+			errors: [],
+			testName: name
+		};
 
-		return testSuites[testSuites.length - 1];
-	}
+		testSuites.push(recordedTest);
+
+		return recordedTest;
+	};
+
+	const isSkipped = ({raw}) => {
+		return (/#\s?([A-Z])\w+/).test(raw);
+	};
 
 	/* Parser Event listening */
 
-	tap.on('comment', function(res) {
+	// This is the ENITRE test event not just the inner asserts
+	tap.on('test', res => {
 		if (finished) {
 			return;
 		}
+
 		testCase = newTest(res);
+		testCase.skipped = isSkipped(res);
 	});
 
-	tap.on('assert', function(res) {
+	tap.on('comment', () => {
+		testCase.comments++;
+	});
+
+	// Event for each assert inside the current Test
+	tap.on('assert', res => {
 		if (!testCase) {
 			testCase = newTest('Default');
 		}
+		testCase.assertCount++;
+		res.skip = isSkipped(res);
 		testCase.asserts.push(res);
-
 	});
 
 	tap.on('extra', extra => {
 		if (testCase && extra) {
+			testCase.extraCount++;
 			testCase.extra.push(extra);
 		}
 	});
@@ -107,11 +114,11 @@ module.exports = () => {
 		finished = true;
 	});
 
-	tap.on('results', res => {
+	tap.on('output', output => {
 		const xmlString = serialize(testSuites);
 
 		out.push(xmlString);
-		writeOutput(xmlString, res.ok);
+		writeOutput(xmlString, (output.fail.length === 0));
 	});
 
 	return dup;

@@ -33,12 +33,12 @@
     "duplexer": "^0.1.1",
     "fs-extra": "^2.1.2",
     "minimist": "^1.2.0",
-    "tap-parser": "^0.4.3",
+    "tap-out": "^2.0.0",
     "through2": "^0.4.1",
     "xmlbuilder": "^8.2.2"
   },
   "devDependencies": {
-		"tape": "4.6.3",
+    "tape": "4.6.3",
     "eslint": "^3.17.1"
   }
 }
