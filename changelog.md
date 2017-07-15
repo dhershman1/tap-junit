@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.1
+
+> - Failures will now build out xml as well to give you more info on failures
+> - Outputs will stdout to the console instead of a file if `--output` is not specified
+
 ## v1.2.0
 
 > - Continued optimizations

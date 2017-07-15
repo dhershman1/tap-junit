@@ -20,7 +20,16 @@ module.exports = testCases => {
 				testCaseEl.ele('skipped');
 			}
 			if (!test.ok && !test.skip) {
-				testCaseEl.ele('failure');
+				const failEl = testCaseEl.ele('failure');
+
+				failEl.ele('operator', {}, test.error.operator);
+				failEl.ele('expected', {}, test.error.expected);
+				failEl.ele('actual', {}, test.error.actual);
+				const locEl = failEl.ele('location');
+
+				locEl.ele('file', {}, test.error.at.file);
+				locEl.ele('line', {}, test.error.at.line);
+				locEl.ele('character', {}, test.error.at.character);
 			}
 		});
 	});

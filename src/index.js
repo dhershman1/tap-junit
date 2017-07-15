@@ -77,6 +77,7 @@ module.exports = () => {
 			errorCount: 0,
 			errors: [],
 			failCount: 0,
+			failAsserts: [],
 			testName: name
 		};
 
@@ -114,15 +115,20 @@ module.exports = () => {
 
 	// Event for a assert failure
 	// Optional param: {assert} which is just the assertion object
-	tap.on('fail', () => {
+	tap.on('fail', assert => {
 		testCase.failCount++;
+		testCase.failAsserts.push(assert);
 	});
 
 	tap.on('output', output => {
 		const xmlString = serialize(testSuites);
 
 		out.push(xmlString);
-		writeOutput(xmlString, (output.fail.length === 0));
+		if (parsedArgs.output) {
+			return writeOutput(xmlString, (output.fail.length === 0));
+		}
+
+		return process.stdout.write(`${xmlString}\n`);
 	});
 
 	return dup;

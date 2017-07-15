@@ -6,6 +6,8 @@ Silly small and silly easy XML tap output formatter.
 
 Works with tape and other tap based tests just pipe it into tap-junit and set your output param.
 
+If no output is set, then the output will now write to the console instead of creating a basic file
+
 **NOTE v1.2.0+ is using Stream3 if you wish to stay on stream2 stick to versions 1.1.0 or lower**
 
 ## Changelog
