@@ -13,9 +13,11 @@ const parsedArgs = require('minimist')(process.argv.slice(2), {
 });
 const serialize = require('./serialize.js');
 
-/* Parser */
+const setOutput = (loc) => {
+	parsedArgs.output = loc;
+};
 
-module.exports = () => {
+const tapJunit = () => {
 	let out = through();
 	let testSuites = [];
 	let testCase = {};
@@ -133,3 +135,14 @@ module.exports = () => {
 
 	return dup;
 };
+
+(function() {
+	if (require.main === module) {
+		tapJunit(parsedArgs);
+	}
+
+	module.exports = {
+		main: tapJunit,
+		setOutput
+	};
+}());

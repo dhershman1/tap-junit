@@ -26,12 +26,28 @@ npm install -g tap-junit
 npm install tap-junit --save-dev
 ~~~
 
-## Usage
+## Usage CLI
 
 ~~~ text
 tape test/*.js | tap-junit --output output/test
 node test.js | ./node_modules/tap-junit/bin/tap-junit --output output/test
 ~~~
+
+## Usage API
+
+Using the API is rather simple since it really only has 1 purpose
+
+```js
+const tapJunit = require('tap-junit');
+
+tapJunit.setOutput('./');
+
+// If using a plugin like karma-tap-pretty-reporter your tapReporter option would look like:
+tapReporter: {
+	prettify: tapJunit.main
+},
+
+```
 
 ## Output
 

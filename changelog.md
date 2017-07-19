@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.2
+
+> - Added a small API to allow this to be used with tools like Karma and webpack
+>   - This was mainly for a use case I needed I will happily expand on this if it is requested
+
 ## v1.2.1
 
 > - Failures will now build out xml as well to give you more info on failures
