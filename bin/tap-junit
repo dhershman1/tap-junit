@@ -7,4 +7,4 @@ const parser = require('../src/index.js');
 /* Output */
 
 process.stdin
-  .pipe(parser());
+  .pipe(parser.main());
