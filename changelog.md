@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.4
+
+> - Tweaked readme
+> - Removed a console that was committed by accident
+
 ## v1.2.3
 
 > - Fixed line endings for outputs
