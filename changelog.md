@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.3
+
+> - Fixed line endings for outputs
+> - Fixed/cleaned XML output for proper jUnit XML
+
 ## v1.2.2
 
 > - Added a small API to allow this to be used with tools like Karma and webpack

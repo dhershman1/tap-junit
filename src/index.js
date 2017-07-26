@@ -5,6 +5,7 @@ const parser = require('tap-out');
 const through = require('through2');
 const duplexer = require('duplexer2');
 const fse = require('fs-extra');
+const EOL = require('os').EOL;
 const parsedArgs = require('minimist')(process.argv.slice(2), {
 	alias: {
 		o: 'output',
@@ -54,7 +55,7 @@ const tapJunit = () => {
 					console.error('There was a write error when tap-junit tried to write your output file', xmlErr);
 					process.exitCode = 1;
 				}
-				process.stdout.write(`Finished! tap.xml created at: ${output}\n`);
+				process.stdout.write(`Finished! tap.xml created at: ${output}${EOL}`);
 				if (!passing) {
 					console.error(new Error('Looks like some test suites failed'));
 					process.exitCode = 1;
@@ -118,6 +119,7 @@ const tapJunit = () => {
 	// Event for a assert failure
 	// Optional param: {assert} which is just the assertion object
 	tap.on('fail', assert => {
+		console.log(assert);
 		testCase.failCount++;
 		testCase.failAsserts.push(assert);
 	});
@@ -130,7 +132,7 @@ const tapJunit = () => {
 			return writeOutput(xmlString, (output.fail.length === 0));
 		}
 
-		return process.stdout.write(`${xmlString}\n`);
+		return process.stdout.write(`${xmlString}${EOL}`);
 	});
 
 	return dup;
