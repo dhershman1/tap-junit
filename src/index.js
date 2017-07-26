@@ -119,7 +119,6 @@ const tapJunit = () => {
 	// Event for a assert failure
 	// Optional param: {assert} which is just the assertion object
 	tap.on('fail', assert => {
-		console.log(assert);
 		testCase.failCount++;
 		testCase.failAsserts.push(assert);
 	});
