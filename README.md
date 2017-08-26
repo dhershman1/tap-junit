@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dhershman1/tap-junit.svg?branch=master)](https://travis-ci.org/dhershman1/tap-junit)
+[![Build Status](https://travis-ci.org/dhershman1/tap-junit.svg?branch=master)](https://travis-ci.org/dhershman1/tap-junit) [![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit) [![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit) [![dependencies Status](https://david-dm.org/dhershman1/tap-junit/status.svg)](https://david-dm.org/dhershman1/tap-junit) [![devDependencies Status](https://david-dm.org/dhershman1/tap-junit/dev-status.svg)](https://david-dm.org/dhershman1/tap-junit?type=dev) 
 
 # tap-junit
 
