@@ -21,7 +21,7 @@ const setOutput = (loc) => {
 const tapJunit = () => {
 	let out = through();
 	let testSuites = [];
-	let testCase = {};
+	let testCase = null;
 	const tap = parser();
 	const dup = duplexer(tap, out);
 

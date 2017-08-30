@@ -1,0 +1,6 @@
+1..2
+ok 1 testFoo.js - Do stuff with stuff
+ok 2 testFoo.js - Do more stuff
+# tests 2
+# pass 2
+# fail 0
