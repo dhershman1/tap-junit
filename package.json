@@ -1,6 +1,6 @@
 {
   "name": "tap-junit",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Silly small and silly easy XML tap output formatter.",
   "main": "src/index.js",
   "bin": {

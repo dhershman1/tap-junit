@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.5
+
+> - Fix corner-case with testCase initialization by [@hsalokor](https://github.com/hsalokor), thanks!
+
 ## v1.2.4
 
 > - Tweaked readme
