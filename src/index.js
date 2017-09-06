@@ -29,7 +29,7 @@ const tapJunit = () => {
 
 	const sanitizeString = (str) => {
 		if (str) {
-			return str.replace(/\W/g, '').trim();
+			return str.replace(/[^\w-_]/g, '').trim();
 		}
 
 		return str;
@@ -55,7 +55,7 @@ const tapJunit = () => {
 					console.error('There was a write error when tap-junit tried to write your output file', xmlErr);
 					process.exitCode = 1;
 				}
-				process.stdout.write(`Finished! tap.xml created at: ${output}${EOL}`);
+				process.stdout.write(`Finished! ${name}.xml created at: ${output}${EOL}`);
 				if (!passing) {
 					console.error(new Error('Looks like some test suites failed'));
 					process.exitCode = 1;
