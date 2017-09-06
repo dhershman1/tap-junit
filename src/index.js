@@ -5,7 +5,7 @@ const parser = require('tap-out');
 const through = require('through2');
 const duplexer = require('duplexer2');
 const fse = require('fs-extra');
-const EOL = require('os').EOL;
+const {EOL} = require('os');
 const parsedArgs = require('minimist')(process.argv.slice(2), {
 	alias: {
 		o: 'output',
@@ -14,20 +14,20 @@ const parsedArgs = require('minimist')(process.argv.slice(2), {
 });
 const serialize = require('./serialize.js');
 
-const setOutput = (loc) => {
+const setOutput = loc => {
 	parsedArgs.output = loc;
 };
 
 const tapJunit = () => {
-	let out = through();
-	let testSuites = [];
 	let testCase = null;
+	const out = through();
+	const testSuites = [];
 	const tap = parser();
 	const dup = duplexer(tap, out);
 
 	/* Helpers */
 
-	const sanitizeString = (str) => {
+	const sanitizeString = str => {
 		if (str) {
 			return str.replace(/[^\w-_]/g, '').trim();
 		}
@@ -89,9 +89,7 @@ const tapJunit = () => {
 		return recordedTest;
 	};
 
-	const isSkipped = ({raw}) => {
-		return (/#\s?(SKIP)+/).test(raw);
-	};
+	const isSkipped = ({raw}) => (/#\s?(SKIP)+/).test(raw);
 
 	/* Parser Event listening */
 
@@ -137,7 +135,7 @@ const tapJunit = () => {
 	return dup;
 };
 
-(function() {
+(function init() {
 	if (require.main === module) {
 		tapJunit(parsedArgs);
 	}

@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.7
+
+> - Some general cleanup and better practice rules
+
 ## v1.2.6
 
 > - Relax filename sanitation to allow - and _ and report correct output filename by [@hsalokor](https://github.com/hsalokor)

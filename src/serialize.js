@@ -1,11 +1,11 @@
 const xmlbuilder = require('xmlbuilder');
-const EOL = require('os').EOL;
+const {EOL} = require('os');
 
 module.exports = testCases => {
-	let rootXml = xmlbuilder.create('testsuites');
+	const rootXml = xmlbuilder.create('testsuites');
 
 	testCases.forEach(suite => {
-		let suiteEl = rootXml.ele('testsuite');
+		const suiteEl = rootXml.ele('testsuite');
 
 		suiteEl.att('tests', suite.assertCount);
 		suiteEl.att('failures', suite.failCount);
