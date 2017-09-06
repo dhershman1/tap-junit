@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.6
+
+> - Relax filename sanitation to allow - and _ and report correct output filename by [@hsalokor](https://github.com/hsalokor)
+
 ## v1.2.5
 
 > - Fix corner-case with testCase initialization by [@hsalokor](https://github.com/hsalokor), thanks!
