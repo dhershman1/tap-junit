@@ -29,7 +29,7 @@ const tapJunit = () => {
 
 	const sanitizeString = (str) => {
 		if (str) {
-			return str.replace(/\W/g, '').trim();
+			return str.replace(/[^\w-_]/g, '').trim();
 		}
 
 		return str;
