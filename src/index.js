@@ -107,7 +107,7 @@ const tapJunit = () => {
 	// Event for each assert inside the current Test
 	tap.on('assert', res => {
 		if (!testCase) {
-			testCase = newTest('Default');
+			testCase = newTest({ name: 'Default' });
 		}
 		testCase.assertCount++;
 		res.skip = isSkipped(res);
