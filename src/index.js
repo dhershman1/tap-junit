@@ -34,6 +34,7 @@ const tapJunit = () => {
 
 		return str;
 	};
+	const name = sanitizeString(parsedArgs.name) || 'tap';
 
 	/**
 	 * Writes the tap.xml file
@@ -43,7 +44,6 @@ const tapJunit = () => {
 	 */
 	const writeOutput = (xml, passing) => {
 		const output = parsedArgs.output || process.cwd();
-		const name = sanitizeString(parsedArgs.name) || 'tap';
 
 		fse.mkdirp(output, err => {
 			if (err) {
@@ -69,7 +69,7 @@ const tapJunit = () => {
 	 * @param  {String} testInfo Test name
 	 * @return {Object}            Returns the newly created test object
 	 */
-	const newTest = ({name, number}) => {
+	const newTest = ({testName, number}) => {
 		const recordedTest = {
 			id: number,
 			assertCount: 0,
@@ -81,7 +81,7 @@ const tapJunit = () => {
 			errors: [],
 			failCount: 0,
 			failAsserts: [],
-			testName: name
+			testName
 		};
 
 		testSuites.push(recordedTest);
@@ -107,7 +107,7 @@ const tapJunit = () => {
 	// Event for each assert inside the current Test
 	tap.on('assert', res => {
 		if (!testCase) {
-			testCase = newTest({ name: 'Default' });
+			testCase = newTest({ name });
 		}
 		testCase.assertCount++;
 		res.skip = isSkipped(res);
