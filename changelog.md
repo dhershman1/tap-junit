@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.8
+
+> - Fix initialization of new test-suite - name is not passed correctly by [@hsalokor](https://github.com/hsalokor)
+> - Use --name passed from command line as default test suite name by [@hsalokor](https://github.com/hsalokor)
+> - Add lazy initialization to case if the tested software logs before first tap line by [@hsalokor](https://github.com/hsalokor)
+
 ## v1.2.7
 
 > - Some general cleanup and better practice rules
