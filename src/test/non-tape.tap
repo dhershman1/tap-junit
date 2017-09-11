@@ -1,4 +1,5 @@
 1..2
+leaking comment from test initialization
 ok 1 testFoo.js - Do stuff with stuff
 ok 2 testFoo.js - Do more stuff
 # tests 2
