@@ -101,6 +101,9 @@ const tapJunit = () => {
 
 	// Someone used a console.log or t.comment in their tests
 	tap.on('comment', () => {
+		if (!testCase) {
+			testCase = newTest({ name });
+		}
 		testCase.comments++;
 	});
 
