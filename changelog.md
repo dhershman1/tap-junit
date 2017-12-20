@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.9
+
+> - Added type and message attr. Removed nested system-out elem [@jscriptcoder](https://github.com/jscriptcoder)
+
 ## v1.2.8
 
 > - Fix initialization of new test-suite - name is not passed correctly by [@hsalokor](https://github.com/hsalokor)
