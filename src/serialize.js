@@ -20,11 +20,15 @@ module.exports = testCases => {
 				testCaseEl.ele('skipped');
 			}
 			if (!test.ok && !test.skip) {
-				testCaseEl.ele('failure').ele('system-out', {}, `
+				testCaseEl.ele('failure', {
+						type: test.error.operator,
+						message: test.raw
+					}, `
     ---
 ${test.error.raw}
+${test.error.stack}
     ---
-				`);
+			`);
 			}
 		});
 	});
