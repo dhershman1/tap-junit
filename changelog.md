@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.10
+
+> - Fix for undefined test names [@jscriptcoder](https://github.com/jscriptcoder)
+
 ## v1.2.9
 
 > - Added type and message attr. Removed nested system-out elem [@jscriptcoder](https://github.com/jscriptcoder)
