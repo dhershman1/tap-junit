@@ -69,7 +69,7 @@ const tapJunit = () => {
 	 * @param  {String} testInfo Test name
 	 * @return {Object}            Returns the newly created test object
 	 */
-	const newTest = ({testName, number}) => {
+	const newTest = ({name: testName, number}) => {
 		const recordedTest = {
 			id: number,
 			assertCount: 0,

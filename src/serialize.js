@@ -18,8 +18,7 @@ module.exports = testCases => {
 
 			if (test.skip) {
 				testCaseEl.ele('skipped');
-			}
-			if (!test.ok && !test.skip) {
+			} else if (!test.ok) {
 				testCaseEl.ele('failure', {
 					type: test.error.operator,
 					message: test.raw
