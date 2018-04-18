@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.11
+
+> - `tap-junit` will now exit with an error if an error happens in the code instead of writing anyway
+> - Added a test set based around bad/erroring code
+> - Broke apart some testing to keep things organized
+> - Slight tweak for code cleanup and keeping things consistent
+> - Brought all of the dependencies up to date
+
 ## v1.2.10
 
 > - Fix for undefined test names [@jscriptcoder](https://github.com/jscriptcoder)
