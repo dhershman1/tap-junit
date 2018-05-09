@@ -1,4 +1,8 @@
-[![Build Status](https://travis-ci.org/dhershman1/tap-junit.svg?branch=master)](https://travis-ci.org/dhershman1/tap-junit) [![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit) [![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit) [![dependencies Status](https://david-dm.org/dhershman1/tap-junit/status.svg)](https://david-dm.org/dhershman1/tap-junit) [![devDependencies Status](https://david-dm.org/dhershman1/tap-junit/dev-status.svg)](https://david-dm.org/dhershman1/tap-junit?type=dev) 
+[![Build Status](https://travis-ci.org/dhershman1/tap-junit.svg?branch=master)](https://travis-ci.org/dhershman1/tap-junit)
+[![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit)
+[![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit)
+[![dependencies Status](https://david-dm.org/dhershman1/tap-junit/status.svg)](https://david-dm.org/dhershman1/tap-junit)
+[![devDependencies Status](https://david-dm.org/dhershman1/tap-junit/dev-status.svg)](https://david-dm.org/dhershman1/tap-junit?type=dev)
 
 # tap-junit
 
@@ -6,7 +10,7 @@ Silly small and silly easy XML tap output formatter.
 
 Works with tape and other tap based tests just pipe it into tap-junit and set your output param.
 
-If no output is set, then the output will now write to the console instead of creating a basic file
+If no output is set, then the output will simply display in the terminal
 
 **NOTE v1.2.0+ is using Stream3 if you wish to stay on stream2 stick to versions 1.1.0 or lower**
 
@@ -16,7 +20,7 @@ You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/
 
 ## Parameters
 
-- `-o, --output` - designate where you want the .xml results to output
+- `-o, --output` - designate where you want the .xml results to output **if no output is specified the content will be placed in the terminal**
 - `-n, --name` - value provided will be the name of the `output.xml` file, otherwise defaults to `tap.xml`
 
 ## Installation
@@ -32,22 +36,6 @@ npm install tap-junit --save-dev
 tape test/*.js | tap-junit --output output/test
 node test.js | ./node_modules/tap-junit/bin/tap-junit --output output/test
 ~~~
-
-## Usage API
-
-Using the API is rather simple since it really only has 1 purpose
-
-```js
-const tapJunit = require('tap-junit');
-
-tapJunit.setOutput('./');
-
-// If using a plugin like karma-tap-pretty-reporter your tapReporter option would look like:
-tapReporter: {
-	prettify: tapJunit.main
-},
-
-```
 
 ## Output
 

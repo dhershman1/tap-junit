@@ -8,12 +8,12 @@
   },
   "scripts": {
     "prepublish": "npm run lint",
-    "test": "tape src/test/pass.js | cross-env bin/tap-junit --output output/test --name pass",
+    "test": "tape src/test/pass.js | cross-env bin/tap-junit -o output/test -n pass",
     "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < src/test/non-tape.tap",
     "test:nooutput": "tape src/test/fail.js | cross-env bin/tap-junit",
     "test:fail": "tape src/test/fail.js | cross-env bin/tap-junit --output output/test",
     "test:err": "tape src/test/error.js | cross-env bin/tap-junit --output output/test",
-    "lint": "eslint src/*.js"
+    "lint": "standard src/**"
   },
   "repository": {
     "type": "git",
@@ -36,15 +36,15 @@
   "homepage": "https://github.com/dhershman1/tap-junit#readme",
   "dependencies": {
     "duplexer2": "0.1.4",
-    "fs-extra": "5.0.0",
+    "fs-extra": "6.0.0",
     "minimist": "1.2.0",
     "tap-out": "2.0.0",
     "through2": "2.0.3",
-    "xmlbuilder": "9.0.7"
+    "xmlbuilder": "10.0.0"
   },
   "devDependencies": {
-    "cross-env": "^5.0.1",
-    "eslint": "^4.6.1",
-    "tape": "4.6.3"
+    "cross-env": "5.1.4",
+    "standard": "11.0.1",
+    "tape": "4.9.0"
   }
 }

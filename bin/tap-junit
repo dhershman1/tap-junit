@@ -1,10 +1,15 @@
-#!/usr/bin/env node
+#! /usr/bin/env node
 
 /* Modules */
-
-const parser = require('../src/index.js');
+const parsedArgs = require('minimist')(process.argv.slice(2), {
+  alias: {
+    o: 'output',
+    n: 'name'
+  }
+})
+const parser = require('../src/index.js')
 
 /* Output */
 
 process.stdin
-  .pipe(parser.main());
+  .pipe(parser(parsedArgs))
