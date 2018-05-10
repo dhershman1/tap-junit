@@ -68,3 +68,7 @@ And Fully skipped tests will show up like so:
 ```xml
 <testsuite skipped="true" tests="0" failures="0" errors="0" name="SKIP skipped test"/>
 ```
+
+## Contributing
+
+Feel free to open PRs if you see room for improvement or features that would be helpful. However please be sure to follow the guidelines for [`standardjs`](https://standardjs.com/) In terms of styling and code standards
