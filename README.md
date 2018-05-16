@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/dhershman1/tap-junit.svg?branch=master)](https://travis-ci.org/dhershman1/tap-junit)
-[![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit)
-[![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat)](https://www.npmjs.com/package/tap-junit)
-[![dependencies Status](https://david-dm.org/dhershman1/tap-junit/status.svg)](https://david-dm.org/dhershman1/tap-junit)
-[![devDependencies Status](https://david-dm.org/dhershman1/tap-junit/dev-status.svg)](https://david-dm.org/dhershman1/tap-junit?type=dev)
+[![Travis](https://img.shields.io/travis/dhershman1/tap-junit.svg?style=flat-square)](https://travis-ci.org/dhershman1/tap-junit)
+[![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
+[![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
+[![David](https://img.shields.io/david/dhershman1/tap-junit.svg?style=flat-square)](https://david-dm.org/dhershman1/tap-junit)
+[![David](https://img.shields.io/david/dev/dhershman1/tap-junit.svg?style=flat-square)](https://david-dm.org/dhershman1/tap-junit?type=dev)
 
 # tap-junit
 
@@ -68,7 +68,3 @@ And Fully skipped tests will show up like so:
 ```xml
 <testsuite skipped="true" tests="0" failures="0" errors="0" name="SKIP skipped test"/>
 ```
-
-## Contributing
-
-Feel free to open PRs if you see room for improvement or features that would be helpful. However please be sure to follow the guidelines for [`standardjs`](https://standardjs.com/) In terms of styling and code standards
