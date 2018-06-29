@@ -3,12 +3,17 @@
 ## v2.0.0 (Unreleased)
 
 ### BREAKING CHANGES
-- Dropped the `.setOutput` and `.main` layout (Remove support for API Usage overall)
+- **Dropped the `.setOutput` and `.main` layout (Remove support for API Usage overall)**
 - An API system is not technically supported however requiring the module will give you the source `index.js` function
 
 ### New
 - Convert to use `standard` instead of `eslint` for linting
 - Update all of the dependencies
+
+### Improved
+
+- Some bits of the flow are improved to hopefully make things easier to follow
+- Slight tweaks and optimizations
 
 ## v1.2.11
 

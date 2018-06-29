@@ -12,7 +12,7 @@ Works with tape and other tap based tests just pipe it into tap-junit and set yo
 
 If no output is set, then the output will simply display in the terminal
 
-**NOTE v1.2.0+ is using Stream3 if you wish to stay on stream2 stick to versions 1.1.0 or lower**
+**Version 2.0.0 removes the overhead of the JavaScript API, if you require this please continue to use v1.2.11**
 
 ## Changelog
 
