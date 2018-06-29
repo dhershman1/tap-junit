@@ -17,13 +17,7 @@ const tapJunit = args => {
 
   /* Helpers */
 
-  const sanitizeString = str => {
-    if (str) {
-      return str.replace(/[^\w-_]/g, '').trim()
-    }
-
-    return 'tap'
-  }
+  const sanitizeString = (str = 'tap') => str.replace(/[^\w-_]/g, '').trim()
 
   /**
    * Writes the tap.xml file
@@ -58,7 +52,7 @@ const tapJunit = args => {
    * @param  {String} testInfo Test name
    * @return {Object} Returns the newly created test object
    */
-  const newTest = ({ name, number }) => {
+  const newTest = ({ name = '', number }) => {
     const testName = name || sanitizeString(args.name)
 
     const recordedTest = {
@@ -72,8 +66,7 @@ const tapJunit = args => {
       errors: [],
       failCount: 0,
       failAsserts: [],
-      testName
-    }
+    testName}
 
     testSuites.push(recordedTest)
 
@@ -91,9 +84,9 @@ const tapJunit = args => {
   })
 
   // Someone used a console.log or t.comment in their tests
-  tap.on('comment', () => {
+  tap.on('comment', res => {
     if (!testCase) {
-      testCase = newTest()
+      testCase = newTest(res)
     }
     testCase.comments++
   })
@@ -101,7 +94,7 @@ const tapJunit = args => {
   // Event for each assert inside the current Test
   tap.on('assert', res => {
     if (!testCase) {
-      testCase = newTest()
+      testCase = newTest(res)
     }
     testCase.assertCount++
     res.skip = isSkipped(res)
@@ -122,7 +115,7 @@ const tapJunit = args => {
 
     // Most likely an issue upstream
     if (output.plans.length < 1) {
-      process.exit(1)
+      process.exitCode = 1
     }
 
     // If an output is specified then let's write our output to it

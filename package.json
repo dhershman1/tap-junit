@@ -38,12 +38,12 @@
     "duplexer2": "0.1.4",
     "fs-extra": "6.0.0",
     "minimist": "1.2.0",
-    "tap-out": "2.0.0",
+    "tap-out": "3.0.0",
     "through2": "2.0.3",
     "xmlbuilder": "10.0.0"
   },
   "devDependencies": {
-    "cross-env": "5.1.4",
+    "cross-env": "5.2.0",
     "standard": "11.0.1",
     "tape": "4.9.0"
   }
