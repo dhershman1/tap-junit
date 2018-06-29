@@ -66,7 +66,8 @@ const tapJunit = args => {
       errors: [],
       failCount: 0,
       failAsserts: [],
-    testName}
+      testName
+    }
 
     testSuites.push(recordedTest)
 
