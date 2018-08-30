@@ -1,7 +1,7 @@
 {
   "name": "tap-junit",
   "version": "2.1.0",
-  "description": "Silly small and silly easy XML tap output formatter.",
+  "description": "Silly small, silly easy junit output formatter for tap.",
   "main": "src/index.js",
   "bin": {
     "tap-junit": "bin/tap-junit"
@@ -31,7 +31,7 @@
     "xunit",
     "junit"
   ],
-  "author": "Dustin Hershman",
+  "author": "Dustin Hershman <dustinh17@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dhershman1/tap-junit/issues"
