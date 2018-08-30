@@ -1,23 +1,26 @@
 /* Modules */
-
-const path = require('path')
-const parser = require('tap-out')
-const through = require('through2')
-const duplexer = require('duplexer2')
-const { mkdirp, writeFile } = require('fs-extra')
 const { EOL } = require('os')
+const path = require('path')
+
+const { mkdirp, writeFile } = require('fs-extra')
+const parser = require('tap-out')
+
 const serialize = require('./serialize.js')
 
 const tapJunit = args => {
   let testCase = null
-  const out = through()
   const testSuites = []
   const tap = parser()
-  const dup = duplexer(tap, out)
 
   /* Helpers */
+  const sanitizeString = (str = 'tap') => {
+    // In case the user included .xml in the name argument lets get rid of it
+    if (str.includes('.xml')) {
+      return str.replace('.xml', '').replace(/[^\w-_]/g, '').trim()
+    }
 
-  const sanitizeString = (str = 'tap') => str.replace(/[^\w-_]/g, '').trim()
+    return str.replace(/[^\w-_]/g, '').trim()
+  }
 
   /**
    * Writes the tap.xml file
@@ -28,22 +31,19 @@ const tapJunit = args => {
   const writeOutput = (xml, passing) => {
     const name = sanitizeString(args.name)
 
-    mkdirp(args.output, err => {
-      if (err) {
-        console.error('There was an error when tap-junit tried to create the output directory', err)
-        process.exitCode = 1
+    mkdirp(args.output).then(() => {
+      return writeFile(path.join(args.output, `${name}.xml`), xml)
+    }).then(() => {
+      console.log('Tap-Junit:', `Finished! ${name}.xml created at -- ${args.output}${EOL}`)
+
+      if (!passing) {
+        console.error(new Error('Looks like some test suites failed'))
+        process.exit(1)
       }
-      writeFile(path.join(args.output, `${name}.xml`), xml, xmlErr => {
-        if (xmlErr) {
-          console.error('There was a write error when tap-junit tried to write your output file', xmlErr)
-          process.exitCode = 1
-        }
-        process.stdout.write(`Finished! ${name}.xml created at: ${args.output}${EOL}`)
-        if (!passing) {
-          console.error(new Error('Looks like some test suites failed'))
-          process.exitCode = 1
-        }
-      })
+    }).catch(err => {
+      console.error(err)
+
+      process.exit(1)
     })
   }
 
@@ -53,6 +53,7 @@ const tapJunit = args => {
    * @return {Object} Returns the newly created test object
    */
   const newTest = ({ name = '', number }) => {
+    console.log('name', name)
     const testName = name || sanitizeString(args.name)
 
     const recordedTest = {
@@ -112,11 +113,9 @@ const tapJunit = args => {
   tap.on('output', output => {
     const xmlString = serialize(testSuites)
 
-    out.push(xmlString)
-
     // Most likely an issue upstream
     if (output.plans.length < 1) {
-      process.exitCode = 1
+      return process.exit(1)
     }
 
     // If an output is specified then let's write our output to it
@@ -124,10 +123,10 @@ const tapJunit = args => {
       return writeOutput(xmlString, output.fail.length === 0)
     }
 
-    return process.stdout.write(`${xmlString}${EOL}`)
+    return console.log(`${xmlString}${EOL}`)
   })
 
-  return dup
+  return tap
 }
 
 module.exports = tapJunit
