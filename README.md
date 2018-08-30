@@ -8,11 +8,7 @@
 
 Silly small and silly easy XML tap output formatter.
 
-Works with tape and other tap based tests just pipe it into tap-junit and set your output param.
-
-If no output is set, then the output will simply display in the terminal
-
-**Version 2.0.0 removes the overhead of the JavaScript API, if you require this please continue to use v1.2.11**
+Works with tape and other tap based tests just pipe it into tap-junit
 
 ## Changelog
 
@@ -20,22 +16,25 @@ You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/
 
 ## Parameters
 
-- `-o, --output` - designate where you want the .xml results to output **if no output is specified the content will be placed in the terminal**
+- `-o, --output` - designate where you want the .xml results to output
+  - If you do not specify an output then results will be displayed within the terminal
 - `-n, --name` - value provided will be the name of the `output.xml` file, otherwise defaults to `tap.xml`
 
 ## Installation
 
-~~~ text
-npm install -g tap-junit
-npm install tap-junit --save-dev
-~~~
+```
+npm i -D tap-junit
+```
 
-## Usage CLI
+## Usage
 
-~~~ text
+```
 tape test/*.js | tap-junit --output output/test
+
 node test.js | ./node_modules/tap-junit/bin/tap-junit --output output/test
-~~~
+
+tap-junit -o output/tests -n nontape < src/test/non-tape.tap
+```
 
 ## Output
 
