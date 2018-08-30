@@ -53,7 +53,6 @@ const tapJunit = args => {
    * @return {Object} Returns the newly created test object
    */
   const newTest = ({ name = '', number }) => {
-    console.log('name', name)
     const testName = name || sanitizeString(args.name)
 
     const recordedTest = {
@@ -118,7 +117,7 @@ const tapJunit = args => {
       return process.exit(1)
     }
 
-    // If an output is specified then let's write our output to it
+    // If an output is specified then let's write our results to it
     if (args.output) {
       return writeOutput(xmlString, output.fail.length === 0)
     }
