@@ -34,6 +34,8 @@ tape test/*.js | tap-junit --output output/test
 node test.js | ./node_modules/tap-junit/bin/tap-junit --output output/test
 
 tap-junit -o output/tests -n nontape < src/test/non-tape.tap
+
+tape tests/thing.js | tap-junit > output/thing.xml
 ```
 
 ## Output
