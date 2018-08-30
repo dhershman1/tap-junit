@@ -6,7 +6,7 @@
 
 # tap-junit
 
-Silly small and silly easy XML tap output formatter.
+Silly small, silly easy junit output formatter for tap.
 
 Works with tape and other tap based tests just pipe it into tap-junit
 
