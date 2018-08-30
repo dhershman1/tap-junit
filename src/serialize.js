@@ -1,5 +1,6 @@
-const xmlbuilder = require('xmlbuilder')
 const { EOL } = require('os')
+
+const xmlbuilder = require('xmlbuilder')
 
 module.exports = testCases => {
   const rootXml = xmlbuilder.create('testsuites')
