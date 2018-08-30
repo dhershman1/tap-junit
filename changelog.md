@@ -1,12 +1,34 @@
 # Changelog
 
-## v2.0.0 (Unreleased)
+## v2.1.0
+
+### New
+
+- Upon an error (in tap-junit) when either writing or if the tests are not passing we call the `exit` method instead of setting the exitCode
+
+### Improved
+
+- Tweaked the `.travis.yml` file for node 8, linting, and cache
+- Updated all current dependencies including dev
+- Removed the `through2` dependency as it was no longer needed
+- Removed the `duplexer2` dependency as it is no longer needed
+- Switched to just using `console.log` vs `process.stdout.write` (flip flop I know)
+- Converted to using the promise chain with `fs-extra` vs callbacks
+
+### Fixed
+
+- If you place the extension at the end of a name it will no longer get attached (Fixed in string sanitizer)
+  - Example: `tap-junit -n tap.xml` will no longer result in `tapxml.xml` but instead `tap.xml` still
+
+## v2.0.0
 
 ### BREAKING CHANGES
+
 - **Dropped the `.setOutput` and `.main` layout (Remove support for API Usage overall)**
 - An API system is not technically supported however requiring the module will give you the source `index.js` function
 
 ### New
+
 - Convert to use `standard` instead of `eslint` for linting
 - Update all of the dependencies
 
