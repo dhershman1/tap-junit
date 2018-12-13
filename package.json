@@ -1,16 +1,19 @@
 {
   "name": "tap-junit",
-  "version": "2.0.0",
-  "description": "Silly small and silly easy XML tap output formatter.",
+  "version": "2.1.0",
+  "description": "Silly small, silly easy junit output formatter for tap.",
   "main": "src/index.js",
   "bin": {
     "tap-junit": "bin/tap-junit"
   },
   "scripts": {
     "prepublish": "npm run lint",
+    "clear": "rimraf output/**",
     "test": "tape src/test/pass.js | cross-env bin/tap-junit -o output/test -n pass",
+    "test:zero": "tape src/test/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
     "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < src/test/non-tape.tap",
-    "test:nooutput": "tape src/test/fail.js | cross-env bin/tap-junit",
+    "test:nooutput": "tape src/test/pass.js | cross-env bin/tap-junit",
+    "test:all": "npm-run-all clear test test:zero test:nontape test:nooutput",
     "test:fail": "tape src/test/fail.js | cross-env bin/tap-junit --output output/test",
     "test:err": "tape src/test/error.js | cross-env bin/tap-junit --output output/test",
     "lint": "standard src/**"
@@ -28,23 +31,23 @@
     "xunit",
     "junit"
   ],
-  "author": "Dustin Hershman",
+  "author": "Dustin Hershman <dustinh17@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dhershman1/tap-junit/issues"
   },
   "homepage": "https://github.com/dhershman1/tap-junit#readme",
   "dependencies": {
-    "duplexer2": "0.1.4",
-    "fs-extra": "6.0.0",
+    "fs-extra": "7.0.0",
     "minimist": "1.2.0",
     "tap-out": "3.0.0",
-    "through2": "2.0.3",
     "xmlbuilder": "10.0.0"
   },
   "devDependencies": {
     "cross-env": "5.2.0",
-    "standard": "11.0.1",
-    "tape": "4.9.0"
+    "npm-run-all": "4.1.3",
+    "rimraf": "2.6.2",
+    "standard": "12.0.1",
+    "tape": "4.9.1"
   }
 }
