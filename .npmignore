@@ -3,3 +3,4 @@ node_modules/
 Makefile
 .travis.yml
 .eslintrc.js
+exp.js

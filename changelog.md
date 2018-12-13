@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.2.0-beta.1
+
+- Fixed root level output paths
+
+## v2.2.0-beta
+
+- Swapped out fs-extra for our own internal file/dir write
+
 ## v2.1.0
 
 ### New

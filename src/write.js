@@ -21,6 +21,14 @@ function mkDirs (str, cb) {
 
         return mkDirs(p, cb)
       })
+    } else {
+      fs.stat(p, (err, stat) => {
+        if (err || !stat.isDirectory()) {
+          return cb(err, p)
+        }
+
+        return cb(null, p)
+      })
     }
   })
 }
