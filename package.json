@@ -9,13 +9,13 @@
   "scripts": {
     "prepublish": "npm run lint",
     "clear": "rimraf output/**",
-    "test": "tape src/test/pass.js | cross-env bin/tap-junit -o output/test -n pass",
-    "test:zero": "tape src/test/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
-    "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < src/test/non-tape.tap",
-    "test:nooutput": "tape src/test/pass.js | cross-env bin/tap-junit",
+    "test": "tape tests/pass.js | cross-env bin/tap-junit -o output/test -n pass",
+    "test:zero": "tape tests/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
+    "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < tests/non-tape.tap",
+    "test:nooutput": "tape tests/pass.js | cross-env bin/tap-junit",
     "all": "npm-run-all clear test test:*",
-    "fail": "tape src/test/fail.js | cross-env bin/tap-junit --output output/test",
-    "err": "tape src/test/error.js | cross-env bin/tap-junit --output output/test",
+    "fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test",
+    "err": "tape tests/error.js | cross-env bin/tap-junit --output output/test",
     "lint": "standard src/**"
   },
   "repository": {
