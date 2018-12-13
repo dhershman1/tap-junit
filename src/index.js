@@ -1,11 +1,9 @@
 /* Modules */
 const { EOL } = require('os')
-const path = require('path')
-
-const { mkdirp, writeFile } = require('fs-extra')
 const parser = require('tap-out')
 
-const serialize = require('./serialize.js')
+const serialize = require('./serialize')
+const write = require('./write')
 
 const tapJunit = args => {
   let testCase = null
@@ -29,21 +27,21 @@ const tapJunit = args => {
    */
   const writeOutput = (xml, passing) => {
     const name = sanitizeString(args.name)
+    const fileName = `${name}.xml`
 
-    mkdirp(args.output).then(() => {
-      return writeFile(path.join(args.output, `${name}.xml`), xml)
-    }).then(() => {
-      console.log('Tap-Junit:', `Finished! ${name}.xml created at -- ${args.output}${EOL}`)
+    write(args.output, fileName, xml)
+      .then(() => {
+        console.log('Tap-Junit:', `Finished! ${fileName} created at -- ${args.output}${EOL}`)
 
-      if (!passing) {
-        console.error(new Error('Looks like some test suites failed'))
+        if (!passing) {
+          console.error(new Error('Looks like some test suites failed'))
+          process.exit(1)
+        }
+      }).catch(err => {
+        console.error(err)
+
         process.exit(1)
-      }
-    }).catch(err => {
-      console.error(err)
-
-      process.exit(1)
-    })
+      })
   }
 
   /**
