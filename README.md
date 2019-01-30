@@ -21,6 +21,9 @@ You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/
 - `-o, --output` - designate where you want the .xml results to output
   - If you do not specify an output then results will be displayed within the terminal
 - `-n, --name` - value provided will be the name of the `output.xml` file, otherwise defaults to `tap.xml`
+- `-s, --suite` - sets the main test suite name defaults to Tap-Junit if not passed
+- `-v, --version` - displays the current tap-junit version
+- `-i, --input` - Specify a specific tap txt input file to transform
 
 ## Installation
 
@@ -38,17 +41,25 @@ node test.js | ./node_modules/tap-junit/bin/tap-junit --output output/test
 tap-junit -o output/tests -n nontape < src/test/non-tape.tap
 
 tape tests/thing.js | tap-junit > output/thing.xml
+
+tap-junit -i tap.txt -s suite-name
 ```
 
 ## Output
 
 ```xml
-<testsuites>
-  <testsuite skipped="false" tests="3" failures="0" errors="0" name="example tests">
-    <testcase name="#1 Results should return val"/>
-    <testcase name="#2 results should return newVal"/>
-    <testcase name="#3 should not change param should return sameVal"/>
+<testsuites tests="4" name="Tap-Junit" failures="0" errors="0">
+  <testsuite tests="3" failures="0" errors="0" name="1 === 1">
+    <testcase name="#1 test is equal"/>
+    <testcase name="#2 test skip extra # SKIP">
+      <skipped/>
+    </testcase>
+    <testcase name="#3 should not be equal"/>
   </testsuite>
+  <testsuite tests="1" failures="0" errors="0" name="2 === 2">
+    <testcase name="#4 should be equal"/>
+  </testsuite>
+  <testsuite tests="0" failures="0" errors="0" name="SKIP skipped test"/>
 </testsuites>
 ```
 
