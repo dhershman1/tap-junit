@@ -4,12 +4,24 @@
 const parsedArgs = require('minimist')(process.argv.slice(2), {
   alias: {
     o: 'output',
-    n: 'name'
+    n: 'name',
+    s: 'suite',
+    v: 'version',
+    i: 'input'
   }
 })
+const { version } = require('../package.json')
 const parser = require('../src/index.js')
+const { createReadStream } = require('fs')
+const path = require('path')
 
 /* Output */
-
-process.stdin
-  .pipe(parser(parsedArgs))
+if (parsedArgs.version) {
+  console.log(version)
+} else if (parsedArgs.input) {
+  createReadStream(path.join(process.cwd(), parsedArgs.input))
+    .pipe(parser(parsedArgs))
+} else {
+  process.stdin
+    .pipe(parser(parsedArgs))
+}
