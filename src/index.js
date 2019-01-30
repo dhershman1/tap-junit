@@ -34,12 +34,11 @@ const tapJunit = args => {
         console.log('Tap-Junit:', `Finished! ${fileName} created at -- ${args.output}${EOL}`)
 
         if (!passing) {
-          console.error(new Error('Looks like some test suites failed'))
+          console.error(new Error('Tap-Junit: Looks like some test suites failed'))
           process.exit(1)
         }
       }).catch(err => {
-        console.error(err)
-
+        console.error('Tap-Junit: There was an error writing the output:', err)
         process.exit(1)
       })
   }
@@ -107,12 +106,12 @@ const tapJunit = args => {
   })
 
   tap.on('output', output => {
-    const xmlString = serialize(testSuites)
-
     // Most likely an issue upstream
     if (output.plans.length < 1) {
       return process.exit(1)
     }
+
+    const xmlString = serialize(testSuites, output, args.suite)
 
     // If an output is specified then let's write our results to it
     if (args.output) {
