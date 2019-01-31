@@ -10,8 +10,6 @@ Silly small, silly easy junit output formatter for tap.
 
 Works with tape and other tap based tests just pipe it into tap-junit
 
-**This README reflects the development branch, which is under the beta tag for tap-junit**
-
 ## Changelog
 
 You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/master/changelog.md

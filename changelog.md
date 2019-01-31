@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1
+
+- Fixed Readme typo
+
 ## v3.0.0
 
 ### POSSIBLE BREAKING CHANGES
