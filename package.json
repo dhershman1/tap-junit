@@ -1,6 +1,6 @@
 {
   "name": "tap-junit",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Silly small, silly easy junit output formatter for tap.",
   "main": "src/index.js",
   "bin": {
@@ -9,13 +9,14 @@
   "scripts": {
     "prepublish": "npm run lint",
     "clear": "rimraf output/**",
-    "test": "tape src/test/pass.js | cross-env bin/tap-junit -o output/test -n pass",
-    "test:zero": "tape src/test/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
-    "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < src/test/non-tape.tap",
-    "test:nooutput": "tape src/test/pass.js | cross-env bin/tap-junit",
-    "test:all": "npm-run-all clear test test:zero test:nontape test:nooutput",
-    "test:fail": "tape src/test/fail.js | cross-env bin/tap-junit --output output/test",
-    "test:err": "tape src/test/error.js | cross-env bin/tap-junit --output output/test",
+    "test": "tape tests/pass.js | cross-env bin/tap-junit -o output/test -n pass -s suite-name",
+    "test:input": "cross-env bin/tap-junit --output output --name api --suite api-test --input tests/non-tape.tap",
+    "test:zero": "tape tests/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
+    "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < tests/non-tape.tap",
+    "test:nooutput": "tape tests/pass.js | cross-env bin/tap-junit",
+    "all": "npm-run-all clear test test:*",
+    "fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test",
+    "err": "tape tests/error.js | cross-env bin/tap-junit --output output/test",
     "lint": "standard src/**"
   },
   "repository": {
@@ -38,14 +39,13 @@
   },
   "homepage": "https://github.com/dhershman1/tap-junit#readme",
   "dependencies": {
-    "fs-extra": "7.0.0",
     "minimist": "1.2.0",
     "tap-out": "3.0.0",
-    "xmlbuilder": "10.0.0"
+    "xmlbuilder": "10.1.1"
   },
   "devDependencies": {
     "cross-env": "5.2.0",
-    "npm-run-all": "4.1.3",
+    "npm-run-all": "4.1.5",
     "rimraf": "2.6.2",
     "standard": "12.0.1",
     "tape": "4.9.1"

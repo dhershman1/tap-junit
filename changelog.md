@@ -1,5 +1,24 @@
 # Changelog
 
+## v3.0.0
+
+### POSSIBLE BREAKING CHANGES
+
+- Output changed slightly, adding attributes to the main wrapper
+- Removed `fs-extra` dependency for internal `mkdirp` function
+  - Please let me know if you migrate to v3.0.0 and experience any trouble right away so I can address it
+  - This should still function the same but I can't plan for every situation
+
+### New
+
+- Added `-i, --input` option which allows you to use tap-junit as a command and specify tap input
+- Added `-v, --version` option to output the version of tap-junit
+- Added `-s, --suite` which sets the suite name of the testsuites wrapper
+
+### Fixed
+
+- root level output paths
+
 ## v2.1.0
 
 ### New
