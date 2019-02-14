@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - development
+  - /^greenkeeper/.*$/
 script:
   - npm run lint
   - npm test
