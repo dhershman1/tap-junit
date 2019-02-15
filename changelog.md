@@ -7,6 +7,7 @@
   - This was happening mainly due to results created by the above (failing tap output & failing bats output)
   - For these types of inputs `tap-junit` will simply omit the type attribute and the stack trace from its output (since they don't technically exist anyway)
 - Upped [tape](https://github.com/substack/tape) version to latest
+- Swapped travis ci in favor of [circleci](https://circleci.com/)
 
 - TODO Side note
   - I want to revisit the serializer since it is being so lightly used it may be better to just ship a simple rendering engine of out own
