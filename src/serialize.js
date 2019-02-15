@@ -1,6 +1,32 @@
 const { EOL } = require('os')
-
 const xmlbuilder = require('xmlbuilder')
+
+/**
+ * Gathers information from the test object to build out the proper arguments for creating the failure element
+ * @function
+ * @private
+ * @param {Object} test The primary test results object
+ * @returns {Array} An array with the proper arguments to use
+ */
+function buildFailureParams (test) {
+  const opts = test.error.operator
+    ? { type: test.error.operator, message: test.raw }
+    : { message: test.raw }
+
+  if (test.error.raw && test.error.stack) {
+    return [
+      opts,
+      `
+      ---
+  ${test.error.raw}
+  ${test.error.stack}
+      ---
+          `
+    ]
+  }
+
+  return [opts]
+}
 
 module.exports = (testCases, output, name = 'Tap-Junit') => {
   const rootXml = xmlbuilder.create('testsuites')
@@ -25,15 +51,7 @@ module.exports = (testCases, output, name = 'Tap-Junit') => {
       if (test.skip) {
         testCaseEl.ele('skipped')
       } else if (!test.ok) {
-        testCaseEl.ele('failure', {
-          type: test.error.operator,
-          message: test.raw
-        }, `
-    ---
-${test.error.raw}
-${test.error.stack}
-    ---
-        `)
+        testCaseEl.ele('failure', ...buildFailureParams(test))
       }
     })
   })
