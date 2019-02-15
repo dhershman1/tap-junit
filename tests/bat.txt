@@ -1,0 +1,4 @@
+1..3
+ok 1 simple comparison - successful
+not ok 2 simple comparison - unsuccessful
+ok 3 # skip simple comparison - ignored
