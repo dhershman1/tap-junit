@@ -1,19 +1,21 @@
 {
   "name": "tap-junit",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Silly small, silly easy junit output formatter for tap.",
   "main": "src/index.js",
   "bin": {
     "tap-junit": "bin/tap-junit"
   },
   "scripts": {
-    "prepublish": "npm run lint",
+    "prepack": "npm run lint",
     "clear": "rimraf output/**",
     "test": "tape tests/pass.js | cross-env bin/tap-junit -o output/test -n pass -s suite-name",
     "test:input": "cross-env bin/tap-junit --output output --name api --suite api-test --input tests/non-tape.tap",
     "test:zero": "tape tests/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
     "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < tests/non-tape.tap",
     "test:nooutput": "tape tests/pass.js | cross-env bin/tap-junit",
+    "tapx": "bin/tap-junit -i tests/tapX.txt -o output/test -n tapx",
+    "bat": "bin/tap-junit -i tests/bat.txt -o output/test -n bat",
     "all": "npm-run-all clear test test:*",
     "fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test",
     "err": "tape tests/error.js | cross-env bin/tap-junit --output output/test",
@@ -48,6 +50,6 @@
     "npm-run-all": "4.1.5",
     "rimraf": "2.6.3",
     "standard": "12.0.1",
-    "tape": "4.9.2"
+    "tape": "4.10.1"
   }
 }
