@@ -10,9 +10,9 @@
 - Swapped travis ci in favor of [circleci](https://circleci.com/)
 
 - TODO Side note
-  - I want to revisit the serializer since it is being so lightly used it may be better to just ship a simple rendering engine of out own
+  - I want to revisit the serializer since it is being so lightly used it may be better to just ship a simple rendering engine of our own
     - This would free up a dependency, but also give better control and possibly improved performance
-  - The above would also introduce an oppertunity to do major cleanup with [Kyanite](https://github.com/dhershman1/kyanite)
+  - The above would also introduce an opportunity to do major cleanup with [Kyanite](https://github.com/dhershman1/kyanite)
 
 ## v3.0.1
 
