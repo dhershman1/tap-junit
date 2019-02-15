@@ -4,3 +4,6 @@ Makefile
 .travis.yml
 .eslintrc.js
 exp.js
+output/
+.DS_Store
+.circleci/
