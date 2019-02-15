@@ -1,5 +1,18 @@
 # Changelog
 
+## v3.0.2
+
+- Added two new test cases for failing tap.txt and [bats](https://github.com/sstephenson/bats) tap output.
+- Fixed failing output which was causing a hard error within serialization of the output
+  - This was happening mainly due to results created by the above (failing tap output & failing bats output)
+  - For these types of inputs `tap-junit` will simply omit the type attribute and the stack trace from its output (since they don't technically exist anyway)
+- Upped [tape](https://github.com/substack/tape) version to latest
+
+- TODO Side note
+  - I want to revisit the serializer since it is being so lightly used it may be better to just ship a simple rendering engine of out own
+    - This would free up a dependency, but also give better control and possibly improved performance
+  - The above would also introduce an oppertunity to do major cleanup with [Kyanite](https://github.com/dhershman1/kyanite)
+
 ## v3.0.1
 
 - Fixed Readme typo
