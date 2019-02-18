@@ -1,0 +1,49 @@
+1..4
+ok 1 dry run (DEBUG) - status
+not ok 2 dry run (DEBUG) - output
+# (from function `assert_equal' in file /opt/bats-helpers/bats-assert/src/assert.bash, line 91,
+#  in test file /Users/johndoe/acmeinc/bblocks-publish/src/test/bats/009-dry-run-debug.bats, line 25)
+#   `assert_equal "${lines[3]}" "DEBUG: CODEBASE_DIR=/code"' failed
+#
+# -- values do not equal --
+# expected : DEBUG: CODEBASE_DIR=/code
+# actual   : DEBUG: CODEBASE_DIR=/Users/johndoe/acmeinc/bblocks-publish
+# --
+#
+not ok 3 dry run (DEBUG) - output length
+# (from function `assert_equal' in file /opt/bats-helpers/bats-assert/src/assert.bash, line 91,
+#  in test file /Users/johndoe/acmeinc/bblocks-publish/src/test/bats/009-dry-run-debug.bats, line 40)
+#   `assert_equal "${#lines[@]}" 24' failed
+#
+# -- values do not equal --
+# expected : 24
+# actual   : 16
+# --
+#
+not ok 4 dry run (DEBUG) - output ALL - TODO: Remove
+# (from function `assert_equal' in file /opt/bats-helpers/bats-assert/src/assert.bash, line 91,
+#  in test file /Users/johndoe/acmeinc/bblocks-publish/src/test/bats/009-dry-run-debug.bats, line 44)
+#   `assert_equal "${output}" ""' failed
+#
+# -- values do not equal --
+# expected (0 lines):
+#
+# actual (16 lines):
+#   DEBUG: DEBUG=yes
+#   DEBUG: DRY_RUN=yes
+#   DEBUG: SKIP=no
+#   DEBUG: CODEBASE_DIR=/Users/johndoe/acmeinc/bblocks-publish
+#   DEBUG: BBLOCKSFILE=BBlocksfile
+#   DEBUG: ARTIFACT_REPO_AUTH is set.
+#   DEBUG: CURL_CMD=curl
+#   DRY_RUN: curl --version
+#   DEBUG: curl --version succeeded.
+#   DEBUG: CURL_TIMEOUT_IN_SEC=120
+#   DEBUG: CURL_CONNECT_TIMEOUT_IN_SEC=10
+#   DEBUG: Publish repo URL is: https://artifactory-de.acmeinc.com/artifactory/libs-release-local/
+#   DEBUG: Coordinates: com.acmeinc.bblocks :: bblocks-fetch :: 0-SNAPSHOT
+#   Publishing script to: TODO
+#   /Users/johndoe/acmeinc/bblocks-publish/target/bblocks-fetch: line 157: ${target_dir}/${self.coords.name}: bad substitution
+#   DEBUG: cURL exit code: 1
+# --
+#
