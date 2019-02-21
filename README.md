@@ -8,7 +8,7 @@
 
 Silly small, silly easy junit output formatter for tap.
 
-Works with tape and other tap based tests just pipe it into tap-junit
+Works with [tape](https://github.com/substack/tape) and other tap based tests just pipe it into tap-junit
 
 ## Changelog
 
