@@ -1,9 +1,12 @@
 # Changelog
 
-## v3.1.0
+## v4.0.0
+
+### BREAKING CHANGES
 
 - Skip is no longer case sensitive `# skip` now works the same as `# SKIP` for tests
 - Using asserts as the test counter now, this should prevent tap output using `#` for comments from recording tests that are actually comments
+- If a file extension is set in the command, it will be used for the generated file, if not `.xml` will be used
 
 ## v3.0.2
 
