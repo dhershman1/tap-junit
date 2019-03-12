@@ -1,6 +1,7 @@
 /* Modules */
 const { EOL } = require('os')
 const parser = require('tap-out')
+const path = require('path')
 
 const serialize = require('./serialize')
 const write = require('./write')
@@ -12,12 +13,23 @@ const tapJunit = args => {
 
   /* Helpers */
   const sanitizeString = (str = 'tap') => {
-    // In case the user included .xml in the name argument lets get rid of it
-    if (str.includes('.xml')) {
-      return str.replace('.xml', '').replace(/[^\w-_]/g, '').trim()
+    const { name } = path.parse(str)
+
+    return name.replace(/[^\w-_]/g, '').trim()
+  }
+
+  const generateFileName = (str = 'tap') => {
+    const { name, ext } = path.parse(str)
+
+    // If the file already has an extension
+    // Then just clean that up and return it
+    if (ext) {
+      return `${sanitizeString(name)}${ext}`
     }
 
-    return str.replace(/[^\w-_]/g, '').trim()
+    // If no extension exists then clean up the string
+    // Then attach the .xml to it
+    return `${sanitizeString(str)}.xml`
   }
 
   /**
@@ -26,12 +38,11 @@ const tapJunit = args => {
    * @param  {Boolean} passing passing boolean to let us know that the tests are passing
    */
   const writeOutput = (xml, passing) => {
-    const name = sanitizeString(args.name)
-    const fileName = `${name}.xml`
+    const name = generateFileName(args.name)
 
-    write(args.output, fileName, xml)
+    write(args.output, name, xml)
       .then(() => {
-        console.log('Tap-Junit:', `Finished! ${fileName} created at -- ${args.output}${EOL}`)
+        console.log('Tap-Junit:', `Finished! ${name} created at -- ${args.output}${EOL}`)
 
         if (!passing) {
           console.error(new Error('Tap-Junit: Looks like some test suites failed'))
@@ -49,7 +60,7 @@ const tapJunit = args => {
    * @return {Object} Returns the newly created test object
    */
   const newTest = ({ name = '', number }) => {
-    const testName = name || sanitizeString(args.name)
+    const testName = name || args.name
 
     const recordedTest = {
       id: number,
