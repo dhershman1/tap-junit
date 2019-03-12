@@ -14,8 +14,9 @@
     "test:zero": "tape tests/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
     "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < tests/non-tape.tap",
     "test:nooutput": "tape tests/pass.js | cross-env bin/tap-junit",
+    "test:norm": "tape tests/skip.js",
     "tapx": "bin/tap-junit -i tests/tapX.txt -o output/test -n tapx",
-    "bat": "bin/tap-junit -i tests/bat-results.txt -o output/test -n bat",
+    "bat": "bin/tap-junit -i tests/bats-1.1.0.txt -o output/test -n bat",
     "all": "npm-run-all clear test test:*",
     "fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test",
     "err": "tape tests/error.js | cross-env bin/tap-junit --output output/test",
@@ -43,7 +44,7 @@
   "dependencies": {
     "minimist": "1.2.0",
     "tap-out": "3.0.0",
-    "xmlbuilder": "10.1.1"
+    "xmlbuilder": "11.0.0"
   },
   "devDependencies": {
     "cross-env": "5.2.0",

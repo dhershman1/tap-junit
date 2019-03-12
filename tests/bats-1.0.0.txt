@@ -1,0 +1,24 @@
+1..5
+ok 1 assert_success - OK
+not ok 2 assert_success - FAIL
+# (from function `assert_success' in file /opt/bats-helpers/bats-assert/src/assert.bash, line 114,
+#  in test file ./tap-junit-issue-23.bats, line 14)
+#   `assert_success' failed
+#
+# -- command failed --
+# status : 127
+# output : /opt/bats/libexec/bats-exec-test: line 58: foobar: command not found
+# --
+#
+ok 3 assert_equal - OK
+not ok 4 assert_equal - FAIL
+# (from function `assert_equal' in file /opt/bats-helpers/bats-assert/src/assert.bash, line 91,
+#  in test file ./tap-junit-issue-23.bats, line 24)
+#   `assert_equal "${output}" "johndoe"' failed
+#
+# -- values do not equal --
+# expected : johndoe
+# actual   : root
+# --
+#
+ok 5 # skip skip
