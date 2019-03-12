@@ -6,8 +6,8 @@ const test = require('tape')
 
 test('1 === 1', t => {
   t.plan(3)
-  t.equal(1, 1, 'test is equal', {data: 'cool'})
-  t.equal(1, 1, 'test skip extra', {skip: true})
+  t.equal(1, 1, 'test is equal', { data: 'cool' })
+  t.equal(1, 1, 'test skip extra', { skip: true })
   t.notEqual(1, 0)
   t.end()
 })
@@ -17,7 +17,7 @@ test('2 === 2', t => {
   t.end()
 })
 
-test('skipped test', {skip: true}, t => {
+test('skipped test', { skip: true }, t => {
   t.ok(true)
   t.end()
 })

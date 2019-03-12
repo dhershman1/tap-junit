@@ -37,6 +37,10 @@ module.exports = (testCases, output, name = 'Tap-Junit') => {
   rootXml.att('errors', output.errors.length)
 
   testCases.forEach(suite => {
+    if (!suite.asserts.length && !suite.skipped) {
+      return
+    }
+
     const suiteEl = rootXml.ele('testsuite')
 
     suiteEl.att('tests', suite.assertCount)
