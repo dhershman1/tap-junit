@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.1.0
+
+- Skip is no longer case sensitive `# skip` now works the same as `# SKIP` for tests
+- Using asserts as the test counter now, this should prevent tap output using `#` for comments from recording tests that are actually comments
+
 ## v3.0.2
 
 - Added two new test cases for failing tap.txt and [bats](https://github.com/sstephenson/bats) tap output.

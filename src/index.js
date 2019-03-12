@@ -70,7 +70,7 @@ const tapJunit = args => {
     return recordedTest
   }
 
-  const isSkipped = ({ raw }) => (/#\s?(SKIP)+/).test(raw)
+  const isSkipped = ({ raw }) => (/#\s?(SKIP)+/i).test(raw)
 
   /* Parser Event listening */
 
