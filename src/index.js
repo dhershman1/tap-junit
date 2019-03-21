@@ -15,7 +15,7 @@ const tapJunit = args => {
   const sanitizeString = (str = 'tap') => {
     const { name } = path.parse(str)
 
-    return name.replace(/[^\w-_]/g, '').trim()
+    return name.replace(/[^\w-_.]/g, '').trim()
   }
 
   const generateFileName = (str = 'tap') => {
@@ -104,6 +104,8 @@ const tapJunit = args => {
     if (!testCase) {
       testCase = newTest(res)
     }
+
+    console.log(res)
     testCase.assertCount++
     res.skip = isSkipped(res)
     testCase.asserts.push(res)
