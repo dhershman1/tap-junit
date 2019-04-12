@@ -1,5 +1,6 @@
 /* Modules */
 const { EOL } = require('os')
+const path = require('path')
 const parser = require('tap-out')
 
 const serialize = require('./serialize')
@@ -7,17 +8,21 @@ const write = require('./write')
 
 const tapJunit = args => {
   let testCase = null
+  // Keep track of custom extensions
+  let extension = '.xml'
   const testSuites = []
   const tap = parser()
 
   /* Helpers */
   const sanitizeString = (str = 'tap') => {
+    const { name, ext } = path.parse(str)
     // In case the user included .xml in the name argument lets get rid of it
-    if (str.includes('.xml')) {
-      return str.replace('.xml', '').replace(/[^\w-_]/g, '').trim()
+
+    if (ext) {
+      extension = ext
     }
 
-    return str.replace(/[^\w-_]/g, '').trim()
+    return name.replace(/[^\w-_]/g, '').trim()
   }
 
   /**
@@ -27,7 +32,7 @@ const tapJunit = args => {
    */
   const writeOutput = (xml, passing) => {
     const name = sanitizeString(args.name)
-    const fileName = `${name}.xml`
+    const fileName = `${name}${extension}`
 
     write(args.output, fileName, xml)
       .then(() => {
