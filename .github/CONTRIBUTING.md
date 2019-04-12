@@ -17,6 +17,8 @@ IF you are editing exsiting functionality please ensure all unit tests remain pa
 ## Developing
 
 - Please stick to the [standardjs](https://standardjs.com/) style for development
+- This lib is written using ES6 please keep all changes to this version
+  - This excludes the import/export since node does not support it internally yet
 - Make sure all current and new units tests are fully passing
 - Please try to keep the flow consistent to what is already present
 
