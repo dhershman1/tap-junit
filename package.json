@@ -43,7 +43,7 @@
   "dependencies": {
     "minimist": "1.2.0",
     "tap-out": "3.0.0",
-    "xmlbuilder": "10.1.1"
+    "xmlbuilder": "13.0.2"
   },
   "devDependencies": {
     "cross-env": "5.2.0",
