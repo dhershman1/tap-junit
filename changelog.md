@@ -1,5 +1,22 @@
 # Changelog
 
+## v3.1.1
+
+### Fixed
+
+- Updated minimiist dependency to fix vulnerability [juanpaco](https://github.com/juanpaco)
+
+## v3.1.0
+
+### New
+- You can now use custom extensions, just apply then to your file name in the `-n` option (#24)
+  - Example: `tape test/*.js | tap-junit -o output/tests -n tape.xuni`
+  - If no extension is provided `tap-junit` will default to `.xml` automatically
+
+### Improved
+
+- Slight tweak to the contribution and PR template mark down files
+
 ## v3.0.2
 
 - Added two new test cases for failing tap.txt and [bats](https://github.com/sstephenson/bats) tap output.
