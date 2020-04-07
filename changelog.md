@@ -1,5 +1,12 @@
 # Changelog
 
+## v3.1.2
+
+### Fixed
+
+- All dependencies have been updated in hopes to address yarn issue
+- Fixed linting errors on some tests
+
 ## v3.1.1
 
 ### Fixed
