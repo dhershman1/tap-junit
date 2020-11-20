@@ -1,6 +1,6 @@
 /* Modules */
 const { EOL } = require('os')
-const parser = require('tap-out')
+const Parser = require('tap-parser')
 const path = require('path')
 
 const serialize = require('./serialize')
@@ -9,7 +9,7 @@ const write = require('./write')
 const tapJunit = args => {
   let testCase = null
   const testSuites = []
-  const tap = parser()
+  const tap = new Parser()
 
   /* Helpers */
   const sanitizeString = (str = 'tap') => {
@@ -86,7 +86,8 @@ const tapJunit = args => {
   /* Parser Event listening */
 
   // This is the ENITRE test event not just the inner asserts
-  tap.on('test', res => {
+  tap.on('plan', res => {
+    console.log('PLAN', res)
     testCase = newTest(res)
     testCase.skipped = isSkipped(res)
   })
@@ -99,15 +100,20 @@ const tapJunit = args => {
     testCase.comments++
   })
 
+  tap.on('skip', res => {
+    console.log('SKIP', res)
+    res.skip = isSkipped(res)
+  })
+
   // Event for each assert inside the current Test
   tap.on('assert', res => {
     if (!testCase) {
       testCase = newTest(res)
     }
 
-    console.log(res)
+    console.log('ASSERT', res)
     testCase.assertCount++
-    res.skip = isSkipped(res)
+    // res.skip = isSkipped(res)
     testCase.asserts.push(res)
   })
 
@@ -118,20 +124,18 @@ const tapJunit = args => {
     testCase.failAsserts.push(assert)
   })
 
-  tap.on('output', output => {
-    // Most likely an issue upstream
-    if (output.plans.length < 1) {
-      return process.exit(1)
-    }
+  tap.on('complete', output => {
+    console.log('OUTPUT', output)
+    console.log('TEST SUITES', testSuites)
 
-    const xmlString = serialize(testSuites, output, args.suite)
+    // const xmlString = serialize(testSuites, output, args.suite)
 
-    // If an output is specified then let's write our results to it
-    if (args.output) {
-      return writeOutput(xmlString, output.fail.length === 0)
-    }
+    // // If an output is specified then let's write our results to it
+    // if (args.output) {
+    //   return writeOutput(xmlString, output.ok)
+    // }
 
-    return console.log(`${xmlString}${EOL}`)
+    // return console.log(`${xmlString}${EOL}`)
   })
 
   return tap
