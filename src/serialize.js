@@ -25,8 +25,6 @@ function buildDetails (data) {
  * @returns {Array} An array with the proper arguments to use
  */
 function buildFailureParams (fail) {
-  console.log('FAIL DATA', fail.diag)
-
   // If there is an operator then its most likely a harness test
   if (fail.operator) {
     return [
