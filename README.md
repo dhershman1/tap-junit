@@ -50,37 +50,14 @@ The above will create a file called `tape.xuni` in the `output/tests` directory 
 ## Output
 
 ```xml
-<testsuites tests="4" name="Tap-Junit" failures="0" errors="0">
-  <testsuite tests="3" failures="0" errors="0" name="1 === 1">
-    <testcase name="#1 test is equal"/>
-    <testcase name="#2 test skip extra # SKIP">
+<testsuites tests="4" name="Tap-Junit" failures="2">
+  <testsuite tests="4" failures="2" skipped="1">
+    <testcase id="1" name="test is equal"/>
+    <testcase id="2" name="test skip extra # SKIP">
       <skipped/>
     </testcase>
-    <testcase name="#3 should not be equal"/>
+    <testcase id="3" name="should not be equal"/>
+    <testcase id="4" name="should be equal"/>
   </testsuite>
-  <testsuite tests="1" failures="0" errors="0" name="2 === 2">
-    <testcase name="#4 should be equal"/>
-  </testsuite>
-  <testsuite tests="0" failures="0" errors="0" name="SKIP skipped test"/>
 </testsuites>
-```
-
-## Skip Output
-
-**`tap-junit` uses regex currently to determine skipped tests it looks for the `# SKIP` string strictly, so please avoid using this in your test/assert name/msg or you may get incorrect outputs. This is done because none of the current Parsers have solid support for `TODO` or `SKIP` in tap.**
-
-If it is requested I will go back to just having the output write blank testsuites and not writing asserts at all when a value is skipped (due to the feedback from tap itself)
-
-Skipped asserts will show up like so:
-
-```xml
-<testcase name="#1 test skip extra # SKIP">
-  <skipped/>
-</testcase>
-```
-
-And Fully skipped tests will show up like so:
-
-```xml
-<testsuite skipped="true" tests="0" failures="0" errors="0" name="SKIP skipped test"/>
 ```
