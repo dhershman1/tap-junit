@@ -11,6 +11,7 @@
   - This should flow better with proper tap output
 - If a file extension is set in the command, it will be used for the generated file, if not `.xml` will be used
 - Error counter removed with new parser
+- The `testcase` name no longer has test number, the test number is now provided in the `id` attribute of `testcase`
 
 ### New
 
@@ -21,6 +22,7 @@
 - Optimized performance from both parsing and serializing
 - Data is built more dynamically, instead of relying on certain keys to exist
 - Better JUnit formatting
+- Moved from [xmlbuilder](https://github.com/oozcitak/xmlbuilder-js) to [xmlbuilder2](https://github.com/oozcitak/xmlbuilder2)
 
 #### Flat XML
 
@@ -47,12 +49,12 @@ v4 tap-junit output:
 ```xml
 <testsuites tests="4" name="Tap-Junit" failures="2">
   <testsuite tests="4" failures="2" skipped="1">
-    <testcase name="#1 test is equal"/>
-    <testcase name="#2 test skip extra # SKIP">
+    <testcase id="1" name="test is equal"/>
+    <testcase id="2" name="test skip extra # SKIP">
       <skipped/>
     </testcase>
-    <testcase name="#3 should not be equal"/>
-    <testcase name="#4 should be equal"/>
+    <testcase id="3" name="should not be equal"/>
+    <testcase id="4" name="should be equal"/>
   </testsuite>
 </testsuites>
 ```
