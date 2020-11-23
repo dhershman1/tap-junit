@@ -12,15 +12,15 @@
 - If a file extension is set in the command, it will be used for the generated file, if not `.xml` will be used
 - Error counter removed with new parser
 
+### New
+
+- Todo support
+
 ### Improved
 
 - Optimized performance from both parsing and serializing
 - Data is built more dynamically, instead of relying on certain keys to exist
 - Better JUnit formatting
-
-### New
-
-- Todo support
 
 #### Flat XML
 
