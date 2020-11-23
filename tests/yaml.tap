@@ -5,15 +5,11 @@ ok 3 - /mnt/conf/values/secrets.production.yaml
 ok 4 - /mnt/conf/values/frontend.review.yaml
 not ok 5 - /mnt/charts/grid-api/templates/secrets.yaml
   ---
-  message: /mnt/charts/grid-api/templates/hook_jobs.yaml\n  1 1       warning  missing document start "---"  (document-
-start)\n  1 3       error    syntax error  expected the node content, but found '-' (syntax)\n  5 44      warning  too
-many spaces inside braces  (braces)\n  6 28      warning  too many spaces inside braces  (braces)\n
+  message: /mnt/charts/grid-api/templates/hook_jobs.yaml\n  1 1       warning  missing document start "---"  (document-start)\n  1 3       error    syntax error  expected the node content, but found '-' (syntax)\n  5 44      warning  too many spaces inside braces  (braces)\n  6 28      warning  too many spaces inside braces  (braces)\n
   ...
 not ok 6 - /mnt/charts/grid-api/templates/configmap.yaml
   ---
-  message: /mnt/charts/grid-api/templates/configmap.yaml\n  1 1       warning  missing document start "---"  (document-
-start)\n  4 11      warning  too many spaces inside braces  (braces)\n  4 41      warning  too many spaces inside brace
-s  (braces)\n  7 1       error    syntax error  could not find expected ' ' (syntax)\n
+  message: /mnt/charts/grid-api/templates/configmap.yaml\n  1 1       warning  missing document start "---"  (document-start)\n  4 11      warning  too many spaces inside braces  (braces)\n  4 41      warning  too many spaces inside braces  (braces)\n  7 1       error    syntax error  could not find expected ' ' (syntax)\n
   ...
 ok 7 - /mnt/charts/grid-api/Chart.yaml
 ok 8 - /mnt/charts/grid-api/values.yaml
