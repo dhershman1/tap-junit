@@ -7,8 +7,7 @@ const serialize = require('./serialize')
 const write = require('./write')
 
 const tapJunit = args => {
-  let testCase = null
-  const testSuites = []
+  const testCases = []
   const tap = new Parser()
 
   /* Helpers */
@@ -54,88 +53,22 @@ const tapJunit = args => {
       })
   }
 
-  /**
-   * Creates a new test object and pushes it into our suites
-   * @param  {String} testInfo Test name
-   * @return {Object} Returns the newly created test object
-   */
-  const newTest = ({ name = '', number }) => {
-    const testName = name || args.name
-
-    const recordedTest = {
-      id: number,
-      assertCount: 0,
-      asserts: [],
-      comments: 0,
-      skipCount: 0,
-      skipped: false,
-      errorCount: 0,
-      errors: [],
-      failCount: 0,
-      failAsserts: [],
-      testName
-    }
-
-    testSuites.push(recordedTest)
-
-    return recordedTest
-  }
-
-  const isSkipped = ({ raw }) => (/#\s?(SKIP)+/i).test(raw)
-
   /* Parser Event listening */
-
-  // This is the ENITRE test event not just the inner asserts
-  tap.on('plan', res => {
-    console.log('PLAN', res)
-    testCase = newTest(res)
-    testCase.skipped = isSkipped(res)
-  })
-
-  // Someone used a console.log or t.comment in their tests
-  tap.on('comment', res => {
-    if (!testCase) {
-      testCase = newTest(res)
-    }
-    testCase.comments++
-  })
-
-  tap.on('skip', res => {
-    console.log('SKIP', res)
-    res.skip = isSkipped(res)
-  })
 
   // Event for each assert inside the current Test
   tap.on('assert', res => {
-    if (!testCase) {
-      testCase = newTest(res)
-    }
-
-    console.log('ASSERT', res)
-    testCase.assertCount++
-    // res.skip = isSkipped(res)
-    testCase.asserts.push(res)
-  })
-
-  // Event for a assert failure
-  // Optional param: {assert} which is just the assertion object
-  tap.on('fail', assert => {
-    testCase.failCount++
-    testCase.failAsserts.push(assert)
+    testCases.push(res)
   })
 
   tap.on('complete', output => {
-    console.log('OUTPUT', output)
-    console.log('TEST SUITES', testSuites)
+    const xmlString = serialize(testCases, output, args.suite)
 
-    // const xmlString = serialize(testSuites, output, args.suite)
+    // If an output is specified then let's write our results to it
+    if (args.output) {
+      return writeOutput(xmlString, output.ok)
+    }
 
-    // // If an output is specified then let's write our results to it
-    // if (args.output) {
-    //   return writeOutput(xmlString, output.ok)
-    // }
-
-    // return console.log(`${xmlString}${EOL}`)
+    return console.log(`${xmlString}${EOL}`)
   })
 
   return tap

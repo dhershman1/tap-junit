@@ -1,6 +1,22 @@
 const { EOL } = require('os')
 const xmlbuilder = require('xmlbuilder')
 
+function buildDetails (data) {
+  if (!data) {
+    return ''
+  }
+
+  let str = '\n---\n'
+
+  for (const key in data) {
+    str += `${key}: ${data[key]}\n`
+  }
+
+  str += '---\n'
+
+  return str
+}
+
 /**
  * Gathers information from the test object to build out the proper arguments for creating the failure element
  * @function
@@ -8,57 +24,60 @@ const xmlbuilder = require('xmlbuilder')
  * @param {Object} test The primary test results object
  * @returns {Array} An array with the proper arguments to use
  */
-function buildFailureParams (test) {
-  const opts = test.error.operator
-    ? { type: test.error.operator, message: test.raw }
-    : { message: test.raw }
+function buildFailureParams (fail) {
+  console.log('FAIL DATA', fail.diag)
 
-  if (test.error.raw && test.error.stack) {
+  // If there is an operator then its most likely a harness test
+  if (fail.operator) {
     return [
-      opts,
+      { type: fail.diag.operator },
       `
       ---
-  ${test.error.raw}
-  ${test.error.stack}
+      operator: ${fail.diag.operator}
+      expected: ${fail.diag.expected}
+      actual: ${fail.diag.actual}
+      at: ${fail.diag.at}
+      stack: ${fail.diag.stack}
       ---
-          `
+      `
     ]
   }
 
-  return [opts]
+  // Otherwise assume its the wild west of tap input and just piece it together the best we can
+  return [
+    { message: fail.diag.message, type: fail.diag.severity || 'fail' },
+    fail.todo
+      ? `${fail.todo}`
+      : buildDetails(fail.diag.data)
+  ]
 }
 
 module.exports = (testCases, output, name = 'Tap-Junit') => {
-  const rootXml = xmlbuilder.create('testsuites')
+  const wrapper = xmlbuilder.create('testsuites')
 
-  rootXml.att('tests', output.asserts.length)
-  rootXml.att('name', name)
-  rootXml.att('failures', output.fail.length)
-  rootXml.att('errors', output.errors.length)
+  wrapper.att('tests', output.count)
+  wrapper.att('name', name)
+  wrapper.att('failures', output.fail)
 
-  testCases.forEach(suite => {
-    if (!suite.asserts.length && !suite.skipped) {
-      return
-    }
-
-    const suiteEl = rootXml.ele('testsuite')
-
-    suiteEl.att('tests', suite.assertCount)
-    suiteEl.att('failures', suite.failCount)
-    suiteEl.att('errors', suite.errorCount)
-    suiteEl.att('name', suite.testName || '')
-    suite.asserts.forEach(test => {
-      const testCaseEl = suiteEl.ele('testcase', {
-        name: `#${test.number} ${test.name}`
-      })
-
-      if (test.skip) {
-        testCaseEl.ele('skipped')
-      } else if (!test.ok) {
-        testCaseEl.ele('failure', ...buildFailureParams(test))
-      }
-    })
+  const rootXml = wrapper.ele('testsuite', {
+    tests: output.count,
+    failures: output.fail,
+    skipped: output.skip
   })
+  const len = testCases.length
+
+  for (let i = 0; i < len; i++) {
+    const t = testCases[i]
+    const caseEl = rootXml.ele('testcase', {
+      name: `#${t.id} ${t.name}`
+    })
+
+    if (t.skip) {
+      caseEl.ele('skipped')
+    } else if (!t.ok) {
+      caseEl.ele('failure', ...buildFailureParams(t))
+    }
+  }
 
   return rootXml.end({
     pretty: true,
