@@ -7,6 +7,8 @@ const serialize = require('./serialize')
 const write = require('./write')
 
 const tapJunit = args => {
+  let currentTest = 0
+  const commentsMap = {}
   const testCases = []
   const tap = new Parser()
 
@@ -57,11 +59,28 @@ const tapJunit = args => {
 
   // Event for each assert inside the current Test
   tap.on('assert', res => {
+    // Track our current test
+    // This is used for comments to keep track of what comments belong to what test
+    currentTest = res.id
+
     testCases.push(res)
   })
 
+  tap.on('comment', res => {
+    // We don't want the failed tests count/message at the end so make sure we strip that out
+    if (/failed \d of \d+ tests/.test(res)) {
+      return
+    }
+
+    if (commentsMap[currentTest]) {
+      commentsMap[currentTest] += res
+    } else {
+      commentsMap[currentTest] = res
+    }
+  })
+
   tap.on('complete', output => {
-    const xmlString = serialize(testCases, output, args.suite)
+    const xmlString = serialize(testCases, output, commentsMap, args.suite)
 
     // If an output is specified then let's write our results to it
     if (args.output) {
