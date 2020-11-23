@@ -1,8 +1,6 @@
 [![CircleCI](https://circleci.com/gh/dhershman1/tap-junit.svg?style=svg)](https://circleci.com/gh/dhershman1/tap-junit)
 [![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
 [![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
-[![David](https://img.shields.io/david/dhershman1/tap-junit.svg?style=flat-square)](https://david-dm.org/dhershman1/tap-junit)
-[![David](https://img.shields.io/david/dev/dhershman1/tap-junit.svg?style=flat-square)](https://david-dm.org/dhershman1/tap-junit?type=dev)
 
 # tap-junit
 
