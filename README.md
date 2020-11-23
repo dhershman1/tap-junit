@@ -41,6 +41,12 @@ tape tests/thing.js | tap-junit > output/thing.xml
 tap-junit -i tap.txt -s suite-name
 ```
 
+You can now use custom extensions (in version 3.1.0+) simply add the extension to the end of your file name. If none is provided `tap-junit` will still default to `.xml`
+
+`tape test/*.js | tap-junit -o output/tests -n tape.xuni`
+
+The above will create a file called `tape.xuni` in the `output/tests` directory with the results inside.
+
 ## Output
 
 ```xml

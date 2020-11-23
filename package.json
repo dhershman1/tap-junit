@@ -45,7 +45,7 @@
   "homepage": "https://github.com/dhershman1/tap-junit#readme",
   "dependencies": {
     "minimist": "1.2.5",
-    "tap-parser": "^10.1.0",
+    "tap-parser": "10.1.0",
     "xmlbuilder": "15.1.0"
   },
   "devDependencies": {
