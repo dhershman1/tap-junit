@@ -16,6 +16,7 @@
 ### New
 
 - Todo support
+- Added new argument support `-p` or `--pretty` use this if you want the xml output to be "pretty" (this is `false` by default)
 
 ### Improved
 

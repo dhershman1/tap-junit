@@ -20,6 +20,7 @@ You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/
 - `-s, --suite` - sets the main test suite name defaults to Tap-Junit if not passed
 - `-v, --version` - displays the current tap-junit version
 - `-i, --input` - Specify a specific tap txt input file to transform
+- `-p, --pretty` - Specify if you want the output xml to be prettified or not this is `false` by default
 
 ## Installation
 
