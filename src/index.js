@@ -1,28 +1,36 @@
 /* Modules */
 const { EOL } = require('os')
+const Parser = require('tap-parser')
 const path = require('path')
-const parser = require('tap-out')
 
 const serialize = require('./serialize')
 const write = require('./write')
 
 const tapJunit = args => {
-  let testCase = null
-  // Keep track of custom extensions
-  let extension = '.xml'
-  const testSuites = []
-  const tap = parser()
+  let currentTest = 1
+  const commentsMap = {}
+  const testCases = []
+  const tap = new Parser()
 
   /* Helpers */
   const sanitizeString = (str = 'tap') => {
-    const { name, ext } = path.parse(str)
-    // In case the user included .xml in the name argument lets get rid of it
+    const { name } = path.parse(str)
 
+    return name.replace(/[^\w-_.]/g, '').trim()
+  }
+
+  const generateFileName = (str = 'tap') => {
+    const { name, ext } = path.parse(str)
+
+    // If the file already has an extension
+    // Then just clean that up and return it
     if (ext) {
-      extension = ext
+      return `${sanitizeString(name)}${ext}`
     }
 
-    return name.replace(/[^\w-_]/g, '').trim()
+    // If no extension exists then clean up the string
+    // Then attach the .xml to it
+    return `${sanitizeString(str)}.xml`
   }
 
   /**
@@ -31,12 +39,11 @@ const tapJunit = args => {
    * @param  {Boolean} passing passing boolean to let us know that the tests are passing
    */
   const writeOutput = (xml, passing) => {
-    const name = sanitizeString(args.name)
-    const fileName = `${name}${extension}`
+    const name = generateFileName(args.name)
 
-    write(args.output, fileName, xml)
+    write(args.output, name, xml)
       .then(() => {
-        console.log('Tap-Junit:', `Finished! ${fileName} created at -- ${args.output}${EOL}`)
+        console.log('Tap-Junit:', `Finished! ${name} created at -- ${args.output}${EOL}`)
 
         if (!passing) {
           console.error(new Error('Tap-Junit: Looks like some test suites failed'))
@@ -48,79 +55,45 @@ const tapJunit = args => {
       })
   }
 
-  /**
-   * Creates a new test object and pushes it into our suites
-   * @param  {String} testInfo Test name
-   * @return {Object} Returns the newly created test object
-   */
-  const newTest = ({ name = '', number }) => {
-    const testName = name || sanitizeString(args.name)
-
-    const recordedTest = {
-      id: number,
-      assertCount: 0,
-      asserts: [],
-      comments: 0,
-      skipCount: 0,
-      skipped: false,
-      errorCount: 0,
-      errors: [],
-      failCount: 0,
-      failAsserts: [],
-      testName
-    }
-
-    testSuites.push(recordedTest)
-
-    return recordedTest
-  }
-
-  const isSkipped = ({ raw }) => (/#\s?(SKIP)+/).test(raw)
-
   /* Parser Event listening */
 
-  // This is the ENITRE test event not just the inner asserts
-  tap.on('test', res => {
-    testCase = newTest(res)
-    testCase.skipped = isSkipped(res)
-  })
-
-  // Someone used a console.log or t.comment in their tests
-  tap.on('comment', res => {
-    if (!testCase) {
-      testCase = newTest(res)
+  tap.on('plan', ({ end }) => {
+    // Check to see if plan is set AFTER the tests run
+    // (like in Tape or the tap npm package)
+    // This is mostly to drop the last bit of information which we don't want
+    if (currentTest === end) {
+      currentTest++
     }
-    testCase.comments++
   })
 
   // Event for each assert inside the current Test
   tap.on('assert', res => {
-    if (!testCase) {
-      testCase = newTest(res)
-    }
-    testCase.assertCount++
-    res.skip = isSkipped(res)
-    testCase.asserts.push(res)
+    // Track our current test
+    // This is used for comments to keep track of what comments belong to what test
+    currentTest = res.id
+
+    testCases.push(res)
   })
 
-  // Event for a assert failure
-  // Optional param: {assert} which is just the assertion object
-  tap.on('fail', assert => {
-    testCase.failCount++
-    testCase.failAsserts.push(assert)
-  })
-
-  tap.on('output', output => {
-    // Most likely an issue upstream
-    if (output.plans.length < 1) {
-      return process.exit(1)
+  tap.on('comment', res => {
+    // We don't want the failed tests count/message at the end so make sure we strip that out
+    if (/failed \d of \d+ tests/.test(res)) {
+      return
     }
 
-    const xmlString = serialize(testSuites, output, args.suite)
+    if (commentsMap[currentTest]) {
+      commentsMap[currentTest] += res
+    } else {
+      commentsMap[currentTest] = res
+    }
+  })
+
+  tap.on('complete', output => {
+    const xmlString = serialize(testCases, output, commentsMap, args)
 
     // If an output is specified then let's write our results to it
     if (args.output) {
-      return writeOutput(xmlString, output.fail.length === 0)
+      return writeOutput(xmlString, output.ok)
     }
 
     return console.log(`${xmlString}${EOL}`)

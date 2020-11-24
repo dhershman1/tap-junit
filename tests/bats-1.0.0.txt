@@ -1,0 +1,33 @@
+1..18
+ok 1 Help
+ok 2 Help w/o flag
+# Cool
+ok 3 create Help
+ok 4 delete Help
+ok 5 deploy Help
+ok 6 describe Help
+ok 7 connect Help
+ok 8 disconnect Help
+ok 9 legacy Help
+ok 10 logs Help
+ok 11 get Help
+ok 12 version
+not ok 13 Get All
+# (from function `test' in file test/functions.bash, line 4,
+#  in test file test/smoke.bats, line 54)
+#   `test iofogctl get all' failed
+# NAMESPACE
+# default
+#
+# CONTROLLER	STATUS		AGE		UPTIME		IP		PORT
+# local-ecn	Failing		-		-		0.0.0.0		51121
+#
+# AGENT		STATUS		AGE		UPTIME		IP		VERSION
+# ioFog Agent	offline		-		-		0.0.0.0:54321	-
+#
+# �[38;5;1m✘ Post http://0.0.0.0:51121/api/v3/user/login: dial tcp 0.0.0.0:51121: connect: connection refused�[0m
+ok 14 Get Namespaces
+ok 15 Get Controllers
+ok 16 Get Agents
+ok 17 create namespace
+ok 18 delete namespace

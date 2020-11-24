@@ -1,14 +1,12 @@
-[![Travis](https://img.shields.io/travis/dhershman1/tap-junit.svg?style=flat-square)](https://travis-ci.org/dhershman1/tap-junit)
+[![CircleCI](https://circleci.com/gh/dhershman1/tap-junit.svg?style=svg)](https://circleci.com/gh/dhershman1/tap-junit)
 [![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
 [![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
-[![David](https://img.shields.io/david/dhershman1/tap-junit.svg?style=flat-square)](https://david-dm.org/dhershman1/tap-junit)
-[![David](https://img.shields.io/david/dev/dhershman1/tap-junit.svg?style=flat-square)](https://david-dm.org/dhershman1/tap-junit?type=dev)
 
 # tap-junit
 
 Silly small, silly easy junit output formatter for tap.
 
-Works with tape and other tap based tests just pipe it into tap-junit
+Works with [tape](https://github.com/substack/tape) and other tap based tests just pipe it into tap-junit
 
 ## Changelog
 
@@ -22,6 +20,7 @@ You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/
 - `-s, --suite` - sets the main test suite name defaults to Tap-Junit if not passed
 - `-v, --version` - displays the current tap-junit version
 - `-i, --input` - Specify a specific tap txt input file to transform
+- `-p, --pretty` - Specify if you want the output xml to be prettified or not this is `false` by default
 
 ## Installation
 
@@ -52,37 +51,14 @@ The above will create a file called `tape.xuni` in the `output/tests` directory 
 ## Output
 
 ```xml
-<testsuites tests="4" name="Tap-Junit" failures="0" errors="0">
-  <testsuite tests="3" failures="0" errors="0" name="1 === 1">
-    <testcase name="#1 test is equal"/>
-    <testcase name="#2 test skip extra # SKIP">
+<testsuites tests="4" name="Tap-Junit" failures="2">
+  <testsuite tests="4" failures="2" skipped="1">
+    <testcase id="1" name="test is equal"/>
+    <testcase id="2" name="test skip extra # SKIP">
       <skipped/>
     </testcase>
-    <testcase name="#3 should not be equal"/>
+    <testcase id="3" name="should not be equal"/>
+    <testcase id="4" name="should be equal"/>
   </testsuite>
-  <testsuite tests="1" failures="0" errors="0" name="2 === 2">
-    <testcase name="#4 should be equal"/>
-  </testsuite>
-  <testsuite tests="0" failures="0" errors="0" name="SKIP skipped test"/>
 </testsuites>
-```
-
-## Skip Output
-
-**`tap-junit` uses regex currently to determine skipped tests it looks for the `# SKIP` string strictly, so please avoid using this in your test/assert name/msg or you may get incorrect outputs. This is done because none of the current Parsers have solid support for `TODO` or `SKIP` in tap.**
-
-If it is requested I will go back to just having the output write blank testsuites and not writing asserts at all when a value is skipped (due to the feedback from tap itself)
-
-Skipped asserts will show up like so:
-
-```xml
-<testcase name="#1 test skip extra # SKIP">
-  <skipped/>
-</testcase>
-```
-
-And Fully skipped tests will show up like so:
-
-```xml
-<testsuite skipped="true" tests="0" failures="0" errors="0" name="SKIP skipped test"/>
 ```

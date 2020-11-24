@@ -1,5 +1,66 @@
 # Changelog
 
+## v4.0.0
+
+### BREAKING CHANGES
+
+- Converted from [tap-out](https://github.com/scottcorgan/tap-out) to [tap-parser](https://github.com/tapjs/tap-parser)
+  - This change means that the xml generated is now "Flat" (see below)
+  - This removes the error count as there isn't an event for this anymore
+  - Skips are handled WAY better and more naturally with TAP
+  - This should flow better with proper tap output
+- If a file extension is set in the command, it will be used for the generated file, if not `.xml` will be used
+- Error counter removed with new parser
+- The `testcase` name no longer has test number, the test number is now provided in the `id` attribute of `testcase`
+
+### New
+
+- Todo support
+- Added new argument support `-p` or `--pretty` use this if you want the xml output to be "pretty" (this is `false` by default)
+
+### Improved
+
+- Optimized performance from both parsing and serializing
+- Data is built more dynamically, instead of relying on certain keys to exist
+- Better JUnit formatting
+- Moved from [xmlbuilder](https://github.com/oozcitak/xmlbuilder-js) to [xmlbuilder2](https://github.com/oozcitak/xmlbuilder2)
+
+#### Flat XML
+
+Now `<testsuits>` containes only a singular `<testsuite>` element, within that all of the `<testcase>` elements now live. Here's an example:
+
+v3 tap-junit output:
+```xml
+<testsuites tests="4" name="suite-name" failures="0" errors="0">
+  <testsuite tests="3" failures="0" errors="0" name="1 === 1">
+    <testcase name="#1 test is equal"/>
+    <testcase name="#2 test skip extra # SKIP">
+      <skipped/>
+    </testcase>
+    <testcase name="#3 should not be equal"/>
+  </testsuite>
+  <testsuite tests="1" failures="0" errors="0" name="2 === 2">
+    <testcase name="#4 should be equal"/>
+  </testsuite>
+  <testsuite tests="0" failures="0" errors="0" name="SKIP skipped test"/>
+</testsuites>
+```
+
+v4 tap-junit output:
+```xml
+<testsuites tests="4" name="Tap-Junit" failures="2">
+  <testsuite tests="4" failures="2" skipped="1">
+    <testcase id="1" name="test is equal"/>
+    <testcase id="2" name="test skip extra # SKIP">
+      <skipped/>
+    </testcase>
+    <testcase id="3" name="should not be equal"/>
+    <testcase id="4" name="should be equal"/>
+  </testsuite>
+</testsuites>
+```
+
+
 ## v3.1.2
 
 ### Fixed
