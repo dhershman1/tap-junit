@@ -7,7 +7,7 @@ const serialize = require('./serialize')
 const write = require('./write')
 
 const tapJunit = args => {
-  let currentTest = 0
+  let currentTest = 1
   const commentsMap = {}
   const testCases = []
   const tap = new Parser()
@@ -57,6 +57,15 @@ const tapJunit = args => {
 
   /* Parser Event listening */
 
+  tap.on('plan', ({ end }) => {
+    // Check to see if plan is set AFTER the tests run
+    // (like in Tape or the tap npm package)
+    // This is mostly to drop the last bit of information which we don't want
+    if (currentTest === end) {
+      currentTest++
+    }
+  })
+
   // Event for each assert inside the current Test
   tap.on('assert', res => {
     // Track our current test
@@ -80,7 +89,7 @@ const tapJunit = args => {
   })
 
   tap.on('complete', output => {
-    const xmlString = serialize(testCases, output, commentsMap, args.suite)
+    const xmlString = serialize(testCases, output, commentsMap, args)
 
     // If an output is specified then let's write our results to it
     if (args.output) {

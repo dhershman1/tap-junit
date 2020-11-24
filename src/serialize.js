@@ -25,7 +25,10 @@ function buildDetails (data) {
  * @returns {Array} An array with the proper arguments to use
  */
 function buildFailureParams (fail, comment) {
-  const failObj = {}
+  const failObj = {
+    '@message': '',
+    '@type': 'fail'
+  }
 
   // If there is an operator then its most likely a harness test
   if (fail.operator) {
@@ -45,30 +48,22 @@ function buildFailureParams (fail, comment) {
   }
 
   if (fail.diag) {
-    failObj.message = fail.diag.message
-    failObj.type = fail.diag.severity || 'fail'
-  } else if (fail.todo) {
-
+    failObj['@message'] = fail.diag.message
+    failObj['@type'] = fail.diag.severity || 'fail'
+    failObj['#'] = fail.todo ? `${fail.todo}\n ${comment}` : `${buildDetails(fail.diag.data)} ${comment}`
+  } else {
+    failObj['#'] = `\n${comment}`
   }
 
-  // Otherwise assume its the wild west of tap input and just piece it together the best we can
-  return fail.diag
-    ? [
-      { message: fail.diag.message, type: fail.diag.severity || 'fail' },
-      fail.todo
-        ? `${fail.todo}\n ${comment}`
-        : `${buildDetails(fail.diag.data)} ${comment}`
-    ]
-    : [{ message: '', type: 'fail' }, `\n${comment}`]
+  return failObj
 }
 
-module.exports = (testCases, output, comments, name = 'Tap-Junit') => {
-  console.log(comments)
+module.exports = (testCases, output, comments, { name = 'Tap-Junit', pretty }) => {
   const len = testCases.length
   const xmlObj = {
     testsuites: {
       '@tests': output.count,
-      '@name': output.name,
+      '@name': name,
       '@failures': output.fail,
       testsuite: {
         '@tests': output.count,
@@ -102,7 +97,7 @@ module.exports = (testCases, output, comments, name = 'Tap-Junit') => {
   }
 
   return create(xmlObj).end({
-    prettyPrint: true,
+    prettyPrint: pretty,
     newline: EOL
   })
 }
