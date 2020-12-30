@@ -1,0 +1,9 @@
+TAP version 13
+# @scope/package
+ok 1 - Package @scope/package is using registered runtime dependency @angular/core
+ok 2 - Package @scope/package is using registered runtime dependency @angular/cdk
+ok 3 - Package @scope/package is using registered runtime dependency rxjs
+ok 4 - Package @scope/package's dependency @angular/cdk is used
+ok 5 - Package @scope/package's dependency @angular/core is used
+ok 6 - Package @scope/package's dependency rxjs is used
+1..6
