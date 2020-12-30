@@ -1,6 +1,6 @@
 {
   "name": "tap-junit",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Silly small, silly easy junit output formatter for tap.",
   "main": "src/index.js",
   "bin": {
@@ -15,6 +15,7 @@
     "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < tests/non-tape.tap",
     "test:nooutput": "tape tests/pass.js | cross-env bin/tap-junit",
     "test:skip": "tape tests/skip.js | bin/tap-junit -o output/test -n skip",
+    "test:jtap": "bin/tap-junit -o output -n dependencies.xml -i tests/j-tap.tap -c jenkins-deps",
     "tape": "tape tests/pass.js",
     "tapx": "bin/tap-junit -i tests/tapX.tap -o output/test -n tapx",
     "bat": "bin/tap-junit -i tests/bats-1.0.0.txt -o output/test -n bat -p",
@@ -47,7 +48,6 @@
   "dependencies": {
     "minimist": "1.2.5",
     "tap-parser": "10.1.0",
-    "xmlbuilder": "15.1.0",
     "xmlbuilder2": "2.4.0"
   },
   "devDependencies": {

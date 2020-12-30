@@ -14,6 +14,7 @@ You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/
 
 ## Parameters
 
+- `-c, --classname` - The name you want to apply to the `testsuite` element (if not set no name is given to the output testsuite)
 - `-o, --output` - designate where you want the .xml results to output
   - If you do not specify an output then results will be displayed within the terminal
 - `-n, --name` - value provided will be the name of the `output.xml` file, otherwise defaults to `tap.xml`

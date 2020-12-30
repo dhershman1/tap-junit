@@ -3,6 +3,7 @@
 /* Modules */
 const parsedArgs = require('minimist')(process.argv.slice(2), {
   alias: {
+    c: 'classname',
     o: 'output',
     n: 'name',
     s: 'suite',

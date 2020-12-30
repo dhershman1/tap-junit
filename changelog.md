@@ -1,5 +1,20 @@
 # Changelog
 
+## v4.1.0
+
+### New
+
+- Added the `-c` argument which sets the `testsuite` (NOT `testsuites`) name
+  - This should fix [#32](https://github.com/dhershman1/tap-junit/issues/32) for the jenkins plugin it uses
+
+### Improved
+
+- Tweaked the github bug report template a little to ask for the CLI use of tap-junit
+
+### Fixed
+
+- Removed the old `xmlbuilder` dependency, woops
+
 ## v4.0.0
 
 ### BREAKING CHANGES

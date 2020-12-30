@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Create a report to help tap-junit improve
 
 ---
 
@@ -16,6 +16,12 @@ Steps to reproduce the behavior:
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
+
+**Command Line Usage**
+If you're able please specify the command line format you used for tap-junit for example:
+```cli
+tap-junit -o output -n dependencies.xml -i tests/j-tap.tap
+```
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
