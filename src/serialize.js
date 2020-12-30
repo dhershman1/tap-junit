@@ -58,7 +58,7 @@ function buildFailureParams (fail, comment) {
   return failObj
 }
 
-module.exports = (testCases, output, comments, { name = 'Tap-Junit', pretty }) => {
+module.exports = (testCases, output, comments, { name = 'Tap-Junit', pretty, classname = 'Tap-Junit-Suite' }) => {
   const len = testCases.length
   const xmlObj = {
     testsuites: {
@@ -66,6 +66,7 @@ module.exports = (testCases, output, comments, { name = 'Tap-Junit', pretty }) =
       '@name': name,
       '@failures': output.fail,
       testsuite: {
+        '@name': classname,
         '@tests': output.count,
         '@skipped': output.skip,
         '@failures': output.fail,
