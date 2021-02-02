@@ -8,10 +8,6 @@ Silly small, silly easy junit output formatter for tap.
 
 Works with [tape](https://github.com/substack/tape) and other tap based tests just pipe it into tap-junit
 
-## Changelog
-
-You can checkout the changelog at: https://github.com/dhershman1/tap-junit/blob/master/changelog.md
-
 ## Parameters
 
 - `-c, --classname` - The name you want to apply to the `testsuite` element (if not set no name is given to the output testsuite)
