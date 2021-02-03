@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.2.0
+
+### Improved
+
+- Made the error diag more dynamic to handle different types of outputs instead of static and expecting
+
 ## v4.1.0
 
 ### New

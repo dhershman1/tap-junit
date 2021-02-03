@@ -1,20 +1,16 @@
 const { EOL } = require('os')
 const { create } = require('xmlbuilder2')
 
-function buildDetails (data) {
-  if (!data) {
-    return ''
-  }
+function formatDiag (diag) {
+  return Object.entries(diag).reduce((acc, [key, value]) => {
+    if (typeof value === 'object') {
+      acc.push(`${key}: \n  ${formatDiag(value)}`)
+    } else {
+      acc.push(`${key}: ${value.replace(/\n/g, ' ')}`)
+    }
 
-  let str = '\n---\n'
-
-  for (const key in data) {
-    str += `${key}: ${data[key]}\n`
-  }
-
-  str += '---\n'
-
-  return str
+    return acc
+  }, []).join('\n')
 }
 
 /**
@@ -50,7 +46,11 @@ function buildFailureParams (fail, comment) {
   if (fail.diag) {
     failObj['@message'] = fail.diag.message
     failObj['@type'] = fail.diag.severity || 'fail'
-    failObj['#'] = fail.todo ? `${fail.todo}\n ${comment}` : `${buildDetails(fail.diag.data)} ${comment}`
+    failObj['#'] = fail.todo ? `${fail.todo}\n ${comment}` : `
+    ---
+    ${formatDiag(fail.diag)}
+    ...
+    ${comment}`
   } else {
     failObj['#'] = `\n${comment}`
   }
