@@ -36,7 +36,7 @@ function writeOutput (args, xml, passing) {
 
   write(args.output, name, xml)
     .then(() => {
-      console.log('Tap-Junit:', `Finished! ${name} created at -- ${args.output}${EOL}`)
+      console.info('Tap-Junit:', `Finished! ${name} created at -- ${args.output}${EOL}`)
 
       if (!passing) {
         console.error(new Error('Tap-Junit: Looks like some test suites failed'))
@@ -55,7 +55,6 @@ function tapJunit (args) {
   const tap = new Parser()
 
   /* Parser Event listening */
-
   // Event for each assert inside the current Test
   tap.on('assert', res => {
     tst = { comments: nextCmt, ...res }
@@ -80,7 +79,7 @@ function tapJunit (args) {
       return writeOutput(args, xmlString, output.ok)
     }
 
-    return console.log(`${xmlString}${EOL}`)
+    return console.info(`${xmlString}${EOL}`)
   })
 
   return tap
