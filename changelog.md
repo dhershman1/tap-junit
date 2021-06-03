@@ -13,6 +13,7 @@ Please report any issues or serliazation that does not follow the below spec for
 ### Improved
 
 - Bit of re organization of the tool
+- Bumped Docker node and tap versions
 
 ### Fixed
 
