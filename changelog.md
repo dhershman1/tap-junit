@@ -1,5 +1,24 @@
 # Changelog
 
+## v5.0.0
+
+Please report any issues or serliazation that does not follow the below spec for output! Thanks!
+
+### BREAKING CHANGES
+
+- Changed the output generation of tap-junit to follow [this spec](https://github.com/junit-team/junit5/blob/main/platform-tests/src/test/resources/jenkins-junit.xsd) more closely
+  - This means no more floating comments, they are now either in the `system-out` tag or the `message` attribute
+- Changed how handling tap comments works, please see the [Comments](https://github.com/dhershman1/tap-junit#comments) section in the Readme
+
+### Improved
+
+- Bit of re organization of the tool
+
+### Fixed
+
+- Broken comments on some tap outputs
+
+
 ## v4.2.0
 
 ### Improved
