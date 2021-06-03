@@ -1,6 +1,6 @@
 {
   "name": "tap-junit",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "Silly small, silly easy junit output formatter for tap.",
   "main": "src/index.js",
   "bin": {
@@ -10,21 +10,22 @@
     "prepack": "npm run lint",
     "clear": "rimraf output/**",
     "test": "tape tests/pass.js | cross-env bin/tap-junit -o output/test -n pass -s suite-name -p",
-    "ava": "bin/tap-junit --output output --name ava.xml --suite ava --input tests/ava.tap -p",
-    "test:input": "cross-env bin/tap-junit --output output --name api.xuni --suite api-test --input tests/non-tape.tap",
-    "test:zero": "tape tests/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
-    "test:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < tests/non-tape.tap",
-    "test:nooutput": "tape tests/pass.js | cross-env bin/tap-junit",
-    "test:skip": "tape tests/skip.js | bin/tap-junit -o output/test -n skip",
-    "test:jtap": "bin/tap-junit -o output -n dependencies.xml -i tests/j-tap.tap -c jenkins-deps",
-    "tape": "tape tests/pass.js",
-    "tapx": "bin/tap-junit -i tests/tapX.tap -o output/test -n tapx",
-    "bat": "bin/tap-junit -i tests/bats-1.0.0.txt -o output/test -n bat -p",
-    "basic": "bin/tap-junit -i tests/basic.tap -o output/test -n basic -p",
-    "all": "npm-run-all clear test test:*",
-    "fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test",
-    "err": "tape tests/error.js | cross-env bin/tap-junit --output output/test",
-    "yaml": "cat tests/yaml.tap | bin/tap-junit -o output/test -n yaml",
+    "test:ava": "cross-env bin/tap-junit --output output --name ava.xml --suite ava --input tests/ava.tap -p",
+    "ci:input": "cross-env bin/tap-junit --output output --name api.xuni --suite api-test --input tests/non-tape.tap",
+    "ci:zero": "tape tests/pass.js | cross-env bin/tap-junit > output/pass-zero.xml",
+    "ci:nontape": "cross-env bin/tap-junit --output output/test --name nontape.xml < tests/non-tape.tap",
+    "ci:nooutput": "tape tests/pass.js | cross-env bin/tap-junit",
+    "ci:skip": "tape tests/skip.js | cross-env bin/tap-junit -o output/test -n skip",
+    "ci:jtap": "cross-env bin/tap-junit -o output -n dependencies.xml -i tests/j-tap.tap -c jenkins-deps",
+    "test:tape": "tape tests/pass.js",
+    "test:tapx": "cross-env bin/tap-junit -i tests/tapX.tap -o output/test -n tapx",
+    "test:bat": "cross-env bin/tap-junit -i tests/bats-1.0.0.txt -o output/test -n bat -p",
+    "test:basic": "cross-env bin/tap-junit -i tests/basic.tap -o output/test -n basic -p",
+    "all": "npm-run-all clear test test:* ci:*",
+    "ci": "npm-run-all clear test ci:*",
+    "test:fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test -n failure -p",
+    "test:err": "tape tests/error.js | cross-env bin/tap-junit --output output/test",
+    "test:yaml": "cat tests/yaml.tap | cross-env bin/tap-junit -o output/test -n yaml",
     "lint": "standard src/**"
   },
   "repository": {
@@ -49,13 +50,13 @@
   "dependencies": {
     "minimist": "1.2.5",
     "tap-parser": "10.1.0",
-    "xmlbuilder2": "2.4.0"
+    "xmlbuilder2": "2.4.1"
   },
   "devDependencies": {
-    "cross-env": "7.0.2",
+    "cross-env": "7.0.3",
     "npm-run-all": "4.1.5",
     "rimraf": "3.0.2",
-    "standard": "14.3.3",
-    "tape": "4.13.2"
+    "standard": "16.0.3",
+    "tape": "5.2.2"
   }
 }

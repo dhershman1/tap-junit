@@ -47,6 +47,8 @@ The above will create a file called `tape.xuni` in the `output/tests` directory 
 
 ## Output
 
+Tap-Junit currently follows [this spec](https://github.com/junit-team/junit5/blob/main/platform-tests/src/test/resources/jenkins-junit.xsd) on junit syntax/layout
+
 ```xml
 <testsuites tests="4" name="Tap-Junit" failures="2">
   <testsuite tests="4" failures="2" skipped="1">
@@ -59,3 +61,11 @@ The above will create a file called `tape.xuni` in the `output/tests` directory 
   </testsuite>
 </testsuites>
 ```
+
+## Comments
+
+So Tap Junit takes a [tape]() style assumption when it comes to comments. That being, when a comment appears before a test (because that's how tape labels its tap output) it will be registered as a comment for that test, but the issue here is that you may lose placed comments in your tap files.
+
+At the moment, I'm still trying to figure out a decent way to handle comments and record them. Keep this in mind that only a single comment before each test will currently be recorded for a system-out tag.
+
+If you have ideas on how to better handle this, don't hesitate to reach out!
