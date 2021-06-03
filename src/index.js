@@ -73,7 +73,6 @@ function tapJunit (args) {
   })
 
   tap.on('complete', output => {
-    console.log(testCases)
     const xmlString = serialize(testCases, output, args)
 
     // If an output is specified then let's write our results to it
