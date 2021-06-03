@@ -43,14 +43,12 @@ function buildFailureParams (fail) {
   }
 
   if (fail.diag) {
-    const msg = fail.diag.message || fail.todo
+    failObj['@message'] = fail.diag.message || fail.todo
       ? `${fail.todo}`
       : `
     ---
     ${formatDiag(fail.diag)}
     ...`
-
-    failObj['@message'] = msg
     failObj['@type'] = fail.diag.severity || 'fail'
   }
 
@@ -74,20 +72,21 @@ module.exports = (testCases, output, { name = 'Tap-Junit', pretty, classname = '
     }
   }
 
-  // return create(xmlObj).end({ prettyPrint: true })
-
   for (let i = 0; i < len; i++) {
     const t = testCases[i]
     const caseEl = {
       '@name': t.name,
-      '@id': t.id,
-      'system-out': t.comments
+      '@id': t.id
     }
 
     if (t.skip) {
       caseEl.skipped = {}
     } else if (!t.ok) {
       caseEl.failure = buildFailureParams(t)
+    }
+
+    if (t.comments) {
+      caseEl['system-out'] = t.comments
     }
 
     xmlObj.testsuites.testsuite.testcase.push(caseEl)
