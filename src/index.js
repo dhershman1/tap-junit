@@ -50,16 +50,16 @@ function writeOutput (args, xml, passing) {
 
 function tapJunit (args) {
   let nextCmt = ''
-  let tst = { comments: '' }
+  let currTest = {}
   const testCases = []
   const tap = new Parser()
 
   /* Parser Event listening */
   // Event for each assert inside the current Test
   tap.on('assert', res => {
-    tst = { comments: nextCmt, ...res }
+    currTest = { comments: nextCmt, ...res }
 
-    testCases.push(tst)
+    testCases.push(currTest)
   })
 
   tap.on('comment', res => {
