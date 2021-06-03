@@ -22,7 +22,7 @@
     "bat": "bin/tap-junit -i tests/bats-1.0.0.txt -o output/test -n bat -p",
     "basic": "bin/tap-junit -i tests/basic.tap -o output/test -n basic -p",
     "all": "npm-run-all clear test test:*",
-    "fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test",
+    "fail": "tape tests/fail.js | cross-env bin/tap-junit --output output/test -n failure -p",
     "err": "tape tests/error.js | cross-env bin/tap-junit --output output/test",
     "yaml": "cat tests/yaml.tap | bin/tap-junit -o output/test -n yaml",
     "lint": "standard src/**"
