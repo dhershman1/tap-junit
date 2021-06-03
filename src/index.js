@@ -49,29 +49,19 @@ function writeOutput (args, xml, passing) {
 }
 
 function tapJunit (args) {
-  let currentTest = 1
+  let nextCmt = ''
+  let tst = { comments: '' }
   const commentsMap = {}
   const testCases = []
   const tap = new Parser()
 
   /* Parser Event listening */
 
-  tap.on('plan', ({ end }) => {
-    // Check to see if plan is set AFTER the tests run
-    // (like in Tape or the tap npm package)
-    // This is mostly to drop the last bit of information which we don't want
-    if (currentTest === end) {
-      currentTest++
-    }
-  })
-
   // Event for each assert inside the current Test
   tap.on('assert', res => {
-    // Track our current test
-    // This is used for comments to keep track of what comments belong to what test
-    currentTest = res.id
+    tst = { comments: nextCmt, ...res }
 
-    testCases.push(res)
+    testCases.push(tst)
   })
 
   tap.on('comment', res => {
@@ -80,14 +70,11 @@ function tapJunit (args) {
       return
     }
 
-    if (commentsMap[currentTest]) {
-      commentsMap[currentTest] += res
-    } else {
-      commentsMap[currentTest] = res
-    }
+    nextCmt = res
   })
 
   tap.on('complete', output => {
+    console.log(testCases)
     const xmlString = serialize(testCases, output, commentsMap, args)
 
     // If an output is specified then let's write our results to it
