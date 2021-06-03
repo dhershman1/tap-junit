@@ -47,6 +47,8 @@ The above will create a file called `tape.xuni` in the `output/tests` directory 
 
 ## Output
 
+Tap-Junit currently follows [this spec](https://github.com/junit-team/junit5/blob/main/platform-tests/src/test/resources/jenkins-junit.xsd) on junit syntax/layout
+
 ```xml
 <testsuites tests="4" name="Tap-Junit" failures="2">
   <testsuite tests="4" failures="2" skipped="1">
