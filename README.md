@@ -1,6 +1,7 @@
 [![CircleCI](https://circleci.com/gh/dhershman1/tap-junit.svg?style=svg)](https://circleci.com/gh/dhershman1/tap-junit)
 [![npm](https://img.shields.io/npm/v/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
 [![Downloads](https://img.shields.io/npm/dm/tap-junit.svg?style=flat-square)](https://www.npmjs.com/package/tap-junit)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dhershman1/tap-junit.svg?style=flat-square&logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dhershman1/tap-junit/context:javascript)
 
 # tap-junit
 
