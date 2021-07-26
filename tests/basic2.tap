@@ -1,0 +1,12 @@
+TAP version 13
+1..4
+not ok 1 - Manual/about.md
+  ---
+  message: /tmp/lint/Manual/about.md 9 MD025/single-title/single-h1 Multiple top-level headings in the same document [Context  "# About this manual"]
+  ...
+ok 2 - Manual/welcome.md
+ok 3 - Media/README.md
+not ok 4 - README.md
+  ---
+  message: /tmp/lint/README.md 4 MD025/single-title/single-h1 Multiple top-level headings in the same document [Context  "# Getting Started"]\n/tmp/lint/README.md 11 MD025/single-title/single-h1 Multiple top-level headings in the same document [Context  "# Build and Test"]\n/tmp/lint/README.md 17 MD025/single-title/single-h1 Multiple top-level headings in the same document [Context  "# Contribute"]
+  ...
