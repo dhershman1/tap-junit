@@ -43,12 +43,11 @@ function buildFailureParams (fail) {
   }
 
   if (fail.diag) {
-    failObj['@message'] = fail.diag.message || fail.todo
-      ? `${fail.todo}`
-      : `
-    ---
-    ${formatDiag(fail.diag)}
-    ...`
+    if (fail.todo) {
+      failObj['@message'] = fail.todo
+    } else {
+      failObj['@message'] = fail.diag.message || formatDiag(fail.diag)
+    }
     failObj['@type'] = fail.diag.severity || 'fail'
   }
 
