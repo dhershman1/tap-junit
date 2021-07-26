@@ -1,5 +1,16 @@
 # Changelog
 
+## v5.0.1
+
+### Added
+
+- Language Grade
+
+### Fixed
+
+- Error/Failure messaging returning `undefined` becuase it was preferring todo instead of message, which might not exist. [#39](https://github.com/dhershman1/tap-junit/issues/39)
+
+
 ## v5.0.0
 
 Please report any issues or serliazation that does not follow the below spec for output! Thanks!
