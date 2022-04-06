@@ -1,5 +1,11 @@
 # Changelog
 
+## v5.0.2
+
+### Fixed
+
+- Dependency version bumps ([#42](https://github.com/dhershman1/tap-junit/pull/42))
+
 ## v5.0.1
 
 ### Added
