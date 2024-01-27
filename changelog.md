@@ -2,6 +2,10 @@
 
 ## v5.0.3
 
+### Fixed
+
+- Removed LGTM badge from README
+
 ### Chore
 
 - Dependency version bumps to next major releases
