@@ -1,5 +1,12 @@
 # Changelog
 
+## v5.0.3
+
+### Chore
+
+- Dependency version bumps to next major releases
+- Audit cleanup
+
 ## v5.0.2
 
 ### Fixed
