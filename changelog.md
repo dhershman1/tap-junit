@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.0.3
+
+### New
+
+- Setup github actions
+
+### Fixed
+
+- Removed LGTM badge from README
+- Remove circleci workflow
+
+### Chore
+
+- Dependency version bumps to next major releases
+- Audit cleanup
+
 ## v5.0.2
 
 ### Fixed

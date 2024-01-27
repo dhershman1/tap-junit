@@ -1,6 +1,6 @@
 /* Modules */
 const { EOL } = require('os')
-const Parser = require('tap-parser')
+const { Parser } = require('tap-parser')
 const path = require('path')
 
 const serialize = require('./serialize')
