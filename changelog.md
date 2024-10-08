@@ -1,5 +1,19 @@
 # Changelog
 
+## v5.0.4
+
+### New
+
+- Added `.gitattributes` file
+
+### Fixed
+
+- Line endings in the bin file from crlf to lf
+
+### Chore
+
+- Dependency version bumps
+
 ## v5.0.3
 
 ### New
